@@ -1,4 +1,4 @@
-package com.solvd.app.dao.interfaces;
+package com.solvd.app.dao;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.solvd.app.dao.classes;
+package com.solvd.app.dao.mysql;
 
-import com.solvd.app.dao.interfaces.ICustomerDAO;
-import com.solvd.app.classes.Customer;
-import com.solvd.app.dao.MySQLDAO;
+import com.solvd.app.dao.ICustomerDAO;
+import com.solvd.app.models.Customer;
+import com.solvd.app.dao.mysql.MySQLDAO;
 
 import java.util.List;
 

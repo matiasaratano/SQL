@@ -73,4 +73,18 @@ public class Employee {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", sector='" + sector + '\'' +
+                ", salary=" + salary +
+                ", hireDate='" + hireDate + '\'' +
+                '}';
+    }
 }

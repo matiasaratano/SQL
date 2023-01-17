@@ -21,13 +21,7 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
 
     @Override
     public Customer getEntityById(int id) {
-        //Connection c = ConnectionPool.getInstance().getConnection();
-        Connection c = null;
-        try {
-            c = ConnectionPool.getInstance().getConnection();
-        } catch (Exception e) {
-            LOGGER.error("Error getting connection from the pool", e);
-        }
+        Connection c = ConnectionPool.getInstance().getConnection();
         Customer customer = new Customer();
         try (PreparedStatement ps = c.prepareStatement(GET_CUSTOMER)) {
             ps.setInt(1, id);
@@ -41,7 +35,6 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
             if (!rs.next()) {
                 throw new EntityNotFoundException("The customer with id " + id + " was not found");
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

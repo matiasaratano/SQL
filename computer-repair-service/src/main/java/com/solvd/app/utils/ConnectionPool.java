@@ -1,14 +1,17 @@
 package com.solvd.app.utils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class ConnectionPool {
     private static ConnectionPool instance;
     private BlockingQueue<Connection> connectionQueue;
-
     private final String URL = "52.59.193.212:3306";
     private final String USERNAME = "root";
     private final String PASSWORD = "devintern";

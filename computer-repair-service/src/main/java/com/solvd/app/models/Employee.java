@@ -6,7 +6,7 @@ public class Employee {
     String lastName;
     String address;
     String phone;
-    String Sector;
+    String sector;
     int salary;
     String hireDate;
 }

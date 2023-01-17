@@ -1,11 +1,11 @@
 package com.solvd.app.models;
 
 public class Repair {
-long id;
-long customerId;
-long employeeId;
-long serviceId;
-long deviceId;
-long vendorItemId;
-String repairDate;
+    private long id;
+    private long customerId;
+    private long employeeId;
+    private long serviceId;
+    private long deviceId;
+    private long vendorItemId;
+    private String repairDate;
 }

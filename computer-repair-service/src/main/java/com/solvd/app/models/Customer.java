@@ -1,9 +1,9 @@
 package com.solvd.app.models;
 
 public class Customer {
-    long id;
-    String firstName;
-    String lastName;
-    String address;
-    String phone;
+    private long id;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String phone;
 }

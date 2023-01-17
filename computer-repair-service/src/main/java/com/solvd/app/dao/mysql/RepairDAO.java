@@ -18,7 +18,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     }
 
     @Override
-    public Repair getEntityById(long id) {
+    public Repair getEntityById(int id) {
         return null;
     }
 

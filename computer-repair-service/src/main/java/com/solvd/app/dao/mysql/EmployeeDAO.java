@@ -17,7 +17,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     }
 
     @Override
-    public Employee getEntityById(long id) {
+    public Employee getEntityById(int id) {
         return null;
     }
 

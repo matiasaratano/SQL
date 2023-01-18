@@ -1,11 +1,17 @@
 INSERT INTO Customers (FirstName, LastName, Address, Phone)
 VALUES ('John', 'Doe', '123 Main St', '555-555-5555');
 
+INSERT INTO Customers (FirstName, LastName, Address, Phone)
+VALUES ('Mark', 'Pe', '123 Main St', '555-555-5555');
+
+INSERT INTO Customers (FirstName, LastName, Address, Phone)
+VALUES ('Peter', 'Tim', '123 Main St', '555-555-5555');
+
 INSERT INTO Employees (FirstName, LastName, Address, Phone, Sector, HireDate, Salary)
 VALUES ('Jane', 'Smith', '456 Park Ave', '555-555-5556', 'Sales','1-1-2000',1000);
 
 INSERT INTO Services (ServiceType, ServicePrice)
-VALUES ('Diagnosis', 50);
+VALUES ('Diagnosis', 150);
 
 INSERT INTO Devices (DeviceType, Brand)
 VALUES ('Laptop', 'Dell');
@@ -67,3 +73,73 @@ WHERE PaymentID = 1;
 UPDATE Invoices
 SET Cost = 5
 WHERE InvoiceID = 1;
+
+DELETE FROM Invoices
+WHERE InvoiceID = 1;
+
+
+
+
+
+
+
+DELETE FROM Services
+WHERE ServiceID = 1;
+
+DELETE FROM Devices
+WHERE DeviceID = 1;
+
+
+DELETE FROM Repair_Details
+WHERE Repair_DetailsID = 1;
+
+DELETE FROM Payment
+WHERE PaymentID = 1;
+
+DELETE FROM Vendor
+WHERE VendorID = 1;
+
+DELETE FROM Customers
+WHERE CustomerID = 1;
+
+DELETE FROM Customers
+WHERE CustomerID = 2;
+
+DELETE FROM Repairs
+WHERE RepairID = 1;
+
+DELETE FROM Employees
+WHERE EmployeeID = 1;
+
+ALTER TABLE Payment
+MODIFY Amount DECIMAL(10,2);
+
+ALTER TABLE Customers
+ADD COLUMN Email VARCHAR(255);
+
+ALTER TABLE Customers
+DROP COLUMN Email;
+
+ALTER TABLE Payment
+MODIFY Amount INT;
+
+SELECT 
+  Customers.FirstName,
+  Customers.LastName,
+  Employees.FirstName,
+  Employees.LastName,
+  Services.ServiceType,
+  Devices.DeviceType,
+  Devices.Brand,
+  Repairs.RepairDate,
+  Repair_Details.PartUsed,
+  Repair_Details.Cost,
+  Invoices.InvoiceDate
+FROM
+  Customers 
+  JOIN Repairs ON Customers.CustomerID = Repairs.CustomerID
+  JOIN Employees ON Repairs.EmployeeID = Employees.EmployeeID
+  JOIN Services ON Repairs.ServiceID = Services.ServiceID
+  JOIN Devices ON Repairs.DeviceID = Devices.DeviceID
+  JOIN Repair_Details ON Repairs.RepairID = Repair_Details.RepairID
+  JOIN Invoices ON Repairs.RepairID = Invoices.RepairID

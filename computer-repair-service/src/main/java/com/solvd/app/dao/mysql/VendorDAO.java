@@ -1,6 +1,5 @@
 package com.solvd.app.dao.mysql;
 
-import com.solvd.app.dao.IRepairDAO;
 import com.solvd.app.dao.IVendorDAO;
 import com.solvd.app.models.Vendor;
 
@@ -26,7 +25,7 @@ public class VendorDAO extends MySQLDAO implements IVendorDAO {
     }
 
     @Override
-    public void removeById(long id) {
+    public void removeById(int id) {
 
     }
 }

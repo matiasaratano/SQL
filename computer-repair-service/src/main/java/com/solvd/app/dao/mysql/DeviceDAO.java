@@ -25,7 +25,7 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
     }
 
     @Override
-    public void removeById(long id) {
+    public void removeById(int id) {
 
     }
 

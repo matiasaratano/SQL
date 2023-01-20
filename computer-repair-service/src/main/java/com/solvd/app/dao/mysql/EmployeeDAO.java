@@ -42,7 +42,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     }
 
     @Override
-    public void removeById(long id) {
+    public void removeById(int id) {
 
     }
 }

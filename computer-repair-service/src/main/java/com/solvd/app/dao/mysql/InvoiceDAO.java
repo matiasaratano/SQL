@@ -1,7 +1,6 @@
 package com.solvd.app.dao.mysql;
 
 import com.solvd.app.dao.IInvoiceDAO;
-import com.solvd.app.dao.IRepairDAO;
 import com.solvd.app.models.Invoice;
 
 public class InvoiceDAO extends MySQLDAO implements IInvoiceDAO {
@@ -26,7 +25,7 @@ public class InvoiceDAO extends MySQLDAO implements IInvoiceDAO {
     }
 
     @Override
-    public void removeById(long id) {
+    public void removeById(int id) {
 
     }
 }

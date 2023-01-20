@@ -65,7 +65,20 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
 
     @Override
     public void updateEntity(Customer entity) {
+        LOGGER.info("Updating customer with id " + entity.getId() + ".");
+        try {
+            String q = "UPDATE RepairService.Customers SET FirstName = ?, LastName=?, Address = ?, Phone=? WHERE customerID= ?";
+            PreparedStatement statement = connection.prepareStatement(q);
 
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getAddress());
+            statement.setString(4, entity.getPhone());
+            statement.setInt(5, entity.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
     }
 
     @Override
@@ -74,8 +87,17 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     }
 
     @Override
-    public void removeById(long id) {
+    public void removeById(int id) {
+        LOGGER.info("Deleting person with id " + id + ".");
+        try {
+            String query = "DELETE FROM Persons WHERE idPerson= ?";
+            PreparedStatement statement = connection.prepareStatement(query);
 
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
     }
 
     @Override

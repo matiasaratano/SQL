@@ -1,6 +1,5 @@
 package com.solvd.app.dao.mysql;
 
-import com.solvd.app.dao.IRepairDAO;
 import com.solvd.app.dao.IRepairDetailDAO;
 import com.solvd.app.models.RepairDetail;
 
@@ -26,7 +25,7 @@ public class RepairDetailDAO extends MySQLDAO implements IRepairDetailDAO {
     }
 
     @Override
-    public void removeById(long id) {
+    public void removeById(int id) {
 
     }
 }

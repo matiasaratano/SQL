@@ -1,7 +1,6 @@
 package com.solvd.app.dao.mysql;
 
 import com.solvd.app.dao.IInventoryItemDAO;
-import com.solvd.app.dao.IRepairDAO;
 import com.solvd.app.models.InventoryItem;
 
 public class InventoryItemDAO extends MySQLDAO implements IInventoryItemDAO {
@@ -26,7 +25,7 @@ public class InventoryItemDAO extends MySQLDAO implements IInventoryItemDAO {
     }
 
     @Override
-    public void removeById(long id) {
+    public void removeById(int id) {
 
     }
 }

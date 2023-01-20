@@ -1,7 +1,6 @@
 package com.solvd.app.dao.mysql;
 
 import com.solvd.app.dao.IPaymentMethodDAO;
-import com.solvd.app.dao.IRepairDAO;
 import com.solvd.app.models.PaymentMethod;
 
 public class PaymentMethodDAO extends MySQLDAO implements IPaymentMethodDAO {
@@ -26,7 +25,7 @@ public class PaymentMethodDAO extends MySQLDAO implements IPaymentMethodDAO {
     }
 
     @Override
-    public void removeById(long id) {
+    public void removeById(int id) {
 
     }
 }

@@ -25,7 +25,7 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
     }
 
     @Override
-    public void removeById(long id) {
+    public void removeById(int id) {
 
     }
 

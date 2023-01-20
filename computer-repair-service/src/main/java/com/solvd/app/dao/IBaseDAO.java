@@ -11,5 +11,5 @@ public interface IBaseDAO<T> {
 
     void delete(T entity);
 
-    void removeById(long id);
+    void removeById(int id);
 }

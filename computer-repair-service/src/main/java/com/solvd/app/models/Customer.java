@@ -8,16 +8,24 @@ public class Customer {
     private String phone;
 
     public Customer() {
-        
+
     }
 
     public Customer(String firstName, String lastName, String address, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+    }
+
+    public Customer(int id, String firstName, String lastName, String address, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
     }
+
 
     public int getId() {
         return id;

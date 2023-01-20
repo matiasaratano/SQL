@@ -6,17 +6,17 @@ import com.solvd.app.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.persistence.EntityNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     private static final Logger LOGGER = LogManager.getLogger(CustomerDAO.class);
-    private final static String GET_CUSTOMER = "Select * from Customers where CustomerID=?";
+    private final static String GET_CUSTOMER = "Select * from RepairService.Customers where CustomerID=?";
     private final Connection connection;
 
     public CustomerDAO() throws SQLException {
@@ -31,13 +31,11 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                customer.setId(rs.getInt("CustomerID"));
                 customer.setFirstName(rs.getString("FirstName"));
                 customer.setLastName(rs.getString("LastName"));
-                customer.setPhone(rs.getString("Address"));
-                customer.setFirstName(rs.getString("Phone"));
-            }
-            if (!rs.next()) {
-                throw new EntityNotFoundException("The customer with id " + id + " was not found");
+                customer.setAddress(rs.getString("Address"));
+                customer.setPhone(rs.getString("Phone"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -53,13 +51,12 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
             String sql = "INSERT INTO Customers (FirstName, LastName, Address, Phone) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            //statement.setInt(1, entity.getId());
             statement.setString(1, entity.getFirstName());
             statement.setString(2, entity.getLastName());
             statement.setString(3, entity.getAddress());
             statement.setString(4, entity.getPhone());
             statement.executeUpdate();
-            LOGGER.info("Customer with id " + entity.getId() + " created.");
+            LOGGER.info("Customer created.");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
@@ -83,7 +80,26 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
 
     @Override
     public List<Customer> findAll() {
-        return null;
+        LOGGER.info("Finding all Persons.");
+        List<Customer> customers = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM customers";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+                customers.add(new Customer(
+                        resultSet.getInt("customerId"),
+                        resultSet.getString("FirstName"),
+                        resultSet.getString("LastName"),
+                        resultSet.getString("Address"),
+                        resultSet.getString("Phone")
+                ));
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return customers;
+
     }
 
     @Override

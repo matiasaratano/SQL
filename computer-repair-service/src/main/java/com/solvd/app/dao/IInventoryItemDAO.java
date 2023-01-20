@@ -1,4 +1,7 @@
 package com.solvd.app.dao;
 
-public interface IInventoryItemDAO {
+import com.solvd.app.models.InventoryItem;
+import com.solvd.app.models.Repair;
+
+public interface IInventoryItemDAO extends IBaseDAO<InventoryItem> {
 }

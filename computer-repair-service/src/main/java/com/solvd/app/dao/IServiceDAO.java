@@ -1,4 +1,7 @@
 package com.solvd.app.dao;
 
-public interface IServiceDAO {
+import com.solvd.app.models.Service;
+
+public interface IServiceDAO extends IBaseDAO<Service> {
+    Service getServiceByRepairId(int repairId);
 }

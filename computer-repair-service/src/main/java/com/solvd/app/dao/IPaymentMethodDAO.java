@@ -1,4 +1,7 @@
 package com.solvd.app.dao;
 
-public interface IPaymentMethodDAO {
+import com.solvd.app.models.PaymentMethod;
+import com.solvd.app.models.Repair;
+
+public interface IPaymentMethodDAO extends IBaseDAO<PaymentMethod> {
 }

@@ -1,4 +1,7 @@
 package com.solvd.app.dao;
 
-public interface IRepairDetailDAO {
+import com.solvd.app.models.Repair;
+import com.solvd.app.models.RepairDetail;
+
+public interface IRepairDetailDAO extends IBaseDAO<RepairDetail> {
 }

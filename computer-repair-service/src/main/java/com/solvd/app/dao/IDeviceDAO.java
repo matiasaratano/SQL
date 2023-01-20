@@ -1,4 +1,7 @@
 package com.solvd.app.dao;
 
-public interface IDeviceDAO {
+import com.solvd.app.models.Device;
+
+public interface IDeviceDAO extends IBaseDAO<Device> {
+    Device getDeviceByRepairId(int repairId);
 }

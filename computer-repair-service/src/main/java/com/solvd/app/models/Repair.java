@@ -1,11 +1,13 @@
 package com.solvd.app.models;
 
+import java.util.List;
+
 public class Repair {
     private int id;
-    private Customer customer;
-    private Employee employee;
-    private Service service;
-    private Device device;
+    private List<Customer> customers;
+    private List<Employee> employees;
+    private List<Service> services;
+    private List<Device> devices;
     private String repairDate;
 
     public int getId() {
@@ -25,46 +27,30 @@ public class Repair {
         this.repairDate = repairDate;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
     public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Employee getEmployee() {
-        return employee;
+        this.customers.add(customer);
     }
 
     public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public Service getService() {
-        return service;
+        this.employees.add(employee);
     }
 
     public void setService(Service service) {
-        this.service = service;
-    }
-
-    public Device getDevice() {
-        return device;
+        this.services.add(service);
     }
 
     public void setDevice(Device device) {
-        this.device = device;
+        this.devices.add(device);
     }
 
     @Override
     public String toString() {
         return "Repair{" +
                 "id=" + id +
-                ", customer=" + customer +
-                ", employee=" + employee +
-                ", service=" + service +
-                ", device=" + device +
+                ", customers=" + customers +
+                ", employees=" + employees +
+                ", services=" + services +
+                ", devices=" + devices +
                 ", repairDate='" + repairDate + '\'' +
                 '}';
     }

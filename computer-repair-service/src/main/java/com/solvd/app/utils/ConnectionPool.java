@@ -4,8 +4,13 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 
 public class ConnectionPool implements AutoCloseable {
@@ -14,24 +19,21 @@ public class ConnectionPool implements AutoCloseable {
     private final static Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
 
     private ConnectionPool() {
+        LOGGER.info("Reading properties file.");
+        Properties properties = new Properties();
+        try (InputStream inputStream = Files.newInputStream(Paths.get("./src/main/resources/db.properties"))) {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         LOGGER.info("Creating connection pool to MySQL database");
-        //LOGGER.info("Reading properties file.");
-        //Properties properties = new Properties();
-        //try (InputStream inputStream = Files.newInputStream(Paths.get("src/main/resources/mysql.db.properties"))) {
-        //properties.load(inputStream);
-        // } catch (IOException e) {
-        //throw new RuntimeException(e);
-        // }
-
-
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        //dataSource.setUrl("52.59.193.212:3306/RepairService");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/RepairService");
-
-        dataSource.setUsername("root");
-        //dataSource.setPassword("devintern");
-        dataSource.setPassword("root");
+        dataSource.setDriverClassName(properties.getProperty("driver"));
+        dataSource.setUrl(properties.getProperty("url"));
+        dataSource.setUsername(properties.getProperty("username"));
+        dataSource.setPassword(properties.getProperty("password"));
         dataSource.setInitialSize(5);
+        
     }
 
     public static ConnectionPool getInstance() {

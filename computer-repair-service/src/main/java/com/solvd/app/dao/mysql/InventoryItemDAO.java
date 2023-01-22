@@ -19,10 +19,6 @@ public class InventoryItemDAO extends MySQLDAO implements IInventoryItemDAO {
 
     }
 
-    @Override
-    public void delete(InventoryItem entity) {
-
-    }
 
     @Override
     public void removeById(int id) {

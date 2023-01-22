@@ -1,5 +1,6 @@
 package com.solvd.app.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Repair {
@@ -8,7 +9,20 @@ public class Repair {
     private List<Employee> employees;
     private List<Service> services;
     private List<Device> devices;
+
+
     private String repairDate;
+
+    public Repair() {
+    }
+
+    public Repair(String repairDate) {
+        this.repairDate = repairDate;
+        this.customers = new ArrayList<>();
+        this.employees = new ArrayList<>();
+        this.services = new ArrayList<>();
+        this.devices = new ArrayList<>();
+    }
 
     public int getId() {
         return id;
@@ -23,25 +37,26 @@ public class Repair {
         return repairDate;
     }
 
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
+
     public void setRepairDate(String repairDate) {
         this.repairDate = repairDate;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customers.add(customer);
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employees.add(employee);
-    }
-
-    public void setService(Service service) {
-        this.services.add(service);
-    }
-
-    public void setDevice(Device device) {
-        this.devices.add(device);
-    }
 
     @Override
     public String toString() {

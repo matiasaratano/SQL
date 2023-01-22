@@ -5,6 +5,15 @@ public class Device {
     private String deviceType;
     private String brand;
 
+    public Device() {
+    }
+
+    public Device(int deviceId, String deviceType, String brand) {
+        this.id = deviceId;
+        this.deviceType = deviceType;
+        this.brand = brand;
+    }
+
     public int getId() {
         return id;
     }

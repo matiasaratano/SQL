@@ -10,6 +10,31 @@ public class Employee {
     private int salary;
     private String hireDate;
 
+
+    public Employee() {
+    }
+
+    public Employee(String firstName, String lastName, String address, String phone, String sector, String hireDate, int salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.sector = sector;
+        this.hireDate = hireDate;
+        this.salary = salary;
+    }
+
+    public Employee(int employeeId, String firstName, String lastName, String address, String phone, String sector, String hireDate, int salary) {
+        this.id = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.sector = sector;
+        this.hireDate = hireDate;
+        this.salary = salary;
+    }
+
     public String getFirstName() {
         return firstName;
     }

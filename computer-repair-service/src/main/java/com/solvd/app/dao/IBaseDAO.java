@@ -8,8 +8,6 @@ public interface IBaseDAO<T> {
     T createEntity(T entity);
 
     void updateEntity(T entity);
-
-    void delete(T entity);
-
+    
     void removeById(int id);
 }

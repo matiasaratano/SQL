@@ -2,6 +2,11 @@ package com.solvd.app.dao;
 
 import com.solvd.app.models.Device;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface IDeviceDAO extends IBaseDAO<Device> {
-    Device getDeviceByRepairId(int repairId);
+    ArrayList<Device> getDevicesByRepairId(int repairId);
+
+    List<Device> findAll();
 }

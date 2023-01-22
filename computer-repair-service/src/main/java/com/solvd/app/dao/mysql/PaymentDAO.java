@@ -20,11 +20,6 @@ public class PaymentDAO extends MySQLDAO implements IPaymentDAO {
     }
 
     @Override
-    public void delete(Payment entity) {
-
-    }
-
-    @Override
     public void removeById(int id) {
 
     }

@@ -20,11 +20,6 @@ public class VendorDAO extends MySQLDAO implements IVendorDAO {
     }
 
     @Override
-    public void delete(Vendor entity) {
-
-    }
-
-    @Override
     public void removeById(int id) {
 
     }

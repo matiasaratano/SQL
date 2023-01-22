@@ -5,6 +5,15 @@ public class Service {
     private String serviceType;
     private int servicePrice;
 
+    public Service() {
+    }
+
+    public Service(int serviceId, String serviceType, int servicePrice) {
+        this.id = serviceId;
+        this.serviceType = serviceType;
+        this.servicePrice = servicePrice;
+    }
+
     public int getId() {
         return id;
     }

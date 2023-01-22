@@ -20,11 +20,6 @@ public class RepairDetailDAO extends MySQLDAO implements IRepairDetailDAO {
     }
 
     @Override
-    public void delete(RepairDetail entity) {
-
-    }
-
-    @Override
     public void removeById(int id) {
 
     }

@@ -19,10 +19,6 @@ public class InvoiceDAO extends MySQLDAO implements IInvoiceDAO {
 
     }
 
-    @Override
-    public void delete(Invoice entity) {
-
-    }
 
     @Override
     public void removeById(int id) {

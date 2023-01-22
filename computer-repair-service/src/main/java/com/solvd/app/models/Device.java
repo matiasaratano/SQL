@@ -8,6 +8,12 @@ public class Device {
     public Device() {
     }
 
+    public Device(String deviceType, String brand) {
+
+        this.deviceType = deviceType;
+        this.brand = brand;
+    }
+
     public Device(int deviceId, String deviceType, String brand) {
         this.id = deviceId;
         this.deviceType = deviceType;

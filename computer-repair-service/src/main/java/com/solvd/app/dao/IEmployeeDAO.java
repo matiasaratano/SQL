@@ -8,5 +8,5 @@ import java.util.List;
 public interface IEmployeeDAO extends IBaseDAO<Employee> {
     List<Employee> findAll();
 
-    ArrayList<Employee> getEmployeeByRepairId(int repairId);
+    ArrayList<Employee> getEmployeesByRepairId(int repairId);
 }

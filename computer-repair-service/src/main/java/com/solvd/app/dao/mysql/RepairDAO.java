@@ -18,8 +18,10 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     private static final Logger LOGGER = LogManager.getLogger(RepairDAO.class);
     private final static String GET_REPAIR = "Select * from RepairService.Repairs where RepairID=?";
     private final static String GET_ALL_REPAIRS = "Select * FROM RepairService.Repairs";
-    private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (`CustomerID`, `EmployeeID`, `ServiceID`, `DeviceID`, `RepairDate`)  VALUES (?, ?, ?, ?, ?)";
-    private final static String UPDATE_REPAIR = "UPDATE RepairService.Repairs SET FirstName = ?, LastName=?, Address = ?, Phone=? WHERE customerID= ?";
+    private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (`RepairDate`)  VALUES (?)";
+    // test OK
+    // private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (customerId, employeeid, serviceid, deviceid,RepairDate)  VALUES (1,1,1,1,?)";
+    private final static String UPDATE_REPAIR = "UPDATE RepairService.Repairs SET  RepairDate=? WHERE repairID= ?";
     private final static String DELETE_REPAIR = "DELETE FROM RepairService.Repairs WHERE repairID= ?";
     private final Connection connection;
 
@@ -40,8 +42,6 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            ConnectionPool.getInstance().close();
         }
         return repair;
     }
@@ -50,12 +50,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     public Repair createEntity(Repair entity) {
         try {
             PreparedStatement statement = connection.prepareStatement(CREATE_REPAIR);
-
-            //statement.setInt(1, entity.get());
-            //statement.setInt(2, entity.getLastName());
-            //statement.setInt(3, entity.getAddress());
-            //statement.setInt(4, entity.getPhone());
-            statement.setString(5, entity.getRepairDate());
+            statement.setString(1, entity.getRepairDate());
             statement.executeUpdate();
             LOGGER.info("Repair created.");
         } catch (SQLException e) {
@@ -67,7 +62,16 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
 
     @Override
     public void updateEntity(Repair entity) {
+        LOGGER.info("Updating repair with id " + entity.getId() + ".");
+        try {
+            PreparedStatement statement = connection.prepareStatement(UPDATE_REPAIR);
 
+            statement.setString(1, entity.getRepairDate());
+            statement.setInt(2, entity.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
     }
 
     @Override
@@ -102,9 +106,4 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
         return repairs;
     }
 
-
-    @Override
-    public Repair getRepairByCustomerId(int id) {
-        return null;
-    }
 }

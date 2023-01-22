@@ -9,11 +9,17 @@ public class Repair {
     private List<Employee> employees;
     private List<Service> services;
     private List<Device> devices;
-
-
     private String repairDate;
 
     public Repair() {
+    }
+
+    public Repair(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Service> services, ArrayList<Device> devices, String repairDate) {
+        this.repairDate = repairDate;
+        this.customers = customers;
+        this.employees = employees;
+        this.services = services;
+        this.devices = devices;
     }
 
     public Repair(String repairDate) {
@@ -35,6 +41,22 @@ public class Repair {
 
     public String getRepairDate() {
         return repairDate;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public List<Device> getDevices() {
+        return devices;
     }
 
     public void setCustomers(List<Customer> customers) {

@@ -43,8 +43,6 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            ConnectionPool.getInstance().close();
         }
         return customer;
     }

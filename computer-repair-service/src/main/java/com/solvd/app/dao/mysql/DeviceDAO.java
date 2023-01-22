@@ -40,8 +40,6 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            ConnectionPool.getInstance().close();
         }
         return device;
     }

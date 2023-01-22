@@ -9,5 +9,5 @@ public interface IServiceDAO extends IBaseDAO<Service> {
 
     List<Service> findAll();
 
-    ArrayList<Service> getServiceByRepairId(int repairId);
+    ArrayList<Service> getServicesByRepairId(int repairId);
 }

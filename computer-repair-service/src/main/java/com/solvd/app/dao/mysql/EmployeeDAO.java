@@ -46,8 +46,6 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            ConnectionPool.getInstance().close();
         }
         return employee;
     }
@@ -133,7 +131,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     }
 
     @Override
-    public ArrayList<Employee> getEmployeeByRepairId(int repairId) {
+    public ArrayList<Employee> getEmployeesByRepairId(int repairId) {
         ArrayList<Employee> employees = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(

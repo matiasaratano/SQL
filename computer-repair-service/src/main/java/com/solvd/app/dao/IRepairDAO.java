@@ -7,5 +7,4 @@ import java.util.List;
 public interface IRepairDAO extends IBaseDAO<Repair> {
     List<Repair> findAll();
 
-    Repair getRepairByCustomerId(int id);
 }

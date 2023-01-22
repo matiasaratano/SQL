@@ -7,24 +7,45 @@ import java.sql.SQLException;
 
 public class RepairService {
 
-    private CustomerDAO customerDAO = new CustomerDAO();
-    private EmployeeDAO employeeDAO = new EmployeeDAO();
+    private CustomerDAO customerDAO;
+    private EmployeeDAO employeeDAO;
     private RepairDAO repairDAO = new RepairDAO();
-    private ServiceDAO serviceDAO = new ServiceDAO();
-    private DeviceDAO deviceDAO = new DeviceDAO();
+    private ServiceDAO serviceDAO;
+    private DeviceDAO deviceDAO;
 
     public RepairService() throws SQLException {
+        this.customerDAO = new CustomerDAO();
+        this.employeeDAO = new EmployeeDAO();
+        this.serviceDAO = new ServiceDAO();
+        this.deviceDAO = new DeviceDAO();
     }
 
 
     public Repair getRepairById(int repairId) throws SQLException {
         Repair repair = repairDAO.getEntityById(repairId);
         repair.setCustomers(customerDAO.getCustomersByRepairId(repairId));
-        repair.setEmployees(employeeDAO.getEmployeeByRepairId(repairId));
-        repair.setServices(serviceDAO.getServiceByRepairId(repairId));
+        repair.setEmployees(employeeDAO.getEmployeesByRepairId(repairId));
+        repair.setServices(serviceDAO.getServicesByRepairId(repairId));
         repair.setDevices(deviceDAO.getDevicesByRepairId(repairId));
         return repair;
     }
 
+    public Repair createRepair(Repair newRepair) {
+        Repair repair = repairDAO.createEntity(newRepair);
+        repair.setCustomers(customerDAO.getCustomersByRepairId(newRepair.getId()));
+        repair.setEmployees(employeeDAO.getEmployeesByRepairId(newRepair.getId()));
+        repair.setServices(serviceDAO.getServicesByRepairId(newRepair.getId()));
+        repair.setDevices(deviceDAO.getDevicesByRepairId(newRepair.getId()));
+        return repair;
+    }
+
+    public void updateRepair(Repair newRepair) throws SQLException {
+        repairDAO.updateEntity(newRepair);
+        Repair repair = repairDAO.getEntityById(newRepair.getId());
+        repair.setCustomers(customerDAO.getCustomersByRepairId(newRepair.getId()));
+        repair.setEmployees(employeeDAO.getEmployeesByRepairId(newRepair.getId()));
+        repair.setServices(serviceDAO.getServicesByRepairId(newRepair.getId()));
+        repair.setDevices(deviceDAO.getDevicesByRepairId(newRepair.getId()));
+    }
 
 }

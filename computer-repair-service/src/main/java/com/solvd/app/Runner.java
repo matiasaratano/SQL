@@ -1,6 +1,5 @@
 package com.solvd.app;
 
-import com.solvd.app.models.Repair;
 import com.solvd.app.service.RepairService;
 import com.solvd.app.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -16,15 +15,21 @@ public class Runner {
         //CustomerDAO customerDAO = new CustomerDAO();
         //ServiceDAO serviceDAO = new ServiceDAO();
         //DeviceDAO deviceDAO = new DeviceDAO();
-        //RepairDAO repairDAO = new RepairDAO();
+        //EmployeeDAO employeeDAO = new EmployeeDAO();
+        RepairService repairService = new RepairService();
         try {
             //Create test
             //Customer customer = new Customer("Mark", "T", "123", "123");
+            //Employee employee = new Employee("Mark", "T", "123", "123", "asd", "2021", 100);
+            //Service service = new Service("arreglo", 123);
+            //Device device = new Device("cel", "samsung");
+
             //LOGGER.info("Creating customer..");
             //customerDAO.createEntity(customer);
 
-            //Find all test
+            //Find all test OK
             //LOGGER.info("Customers found:\n" + customerDAO.findAll());
+            //LOGGER.info("Employees found:\n" + employeeDAO.findAll());
             //LOGGER.info("Services found:\n" + serviceDAO.findAll());
             //LOGGER.info("Devices found:\n" + deviceDAO.findAll());
 
@@ -34,9 +39,13 @@ public class Runner {
             //Remove test
             //customerDAO.removeById(27);
 
-            RepairService rs = new RepairService();
-            Repair repair = rs.getRepairById(1);
-            LOGGER.info(repair);
+            //RepairService rs = new RepairService();
+            //Repair repair2 = rs.getRepairById(1);
+            //LOGGER.info(repair2);
+            //rs.createRepair(repair);
+            //Repair repair = new Repair(customerDAO.getCustomersByRepairId(1), employeeDAO.getEmployeesByRepairId(1), serviceDAO.getServicesByRepairId(1), deviceDAO.getDevicesByRepairId(1), "2021");
+            //repairService.createRepair(repair);
+
 
             ConnectionPool.getInstance().close();
         } catch (SQLException e) {

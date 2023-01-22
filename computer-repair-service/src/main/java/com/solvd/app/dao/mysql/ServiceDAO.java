@@ -40,8 +40,6 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            ConnectionPool.getInstance().close();
         }
         return service;
     }
@@ -67,7 +65,6 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
         LOGGER.info("Updating service with id " + entity.getId() + ".");
         try {
             PreparedStatement statement = connection.prepareStatement(UPDATE_SERVICE);
-
             statement.setString(1, entity.getServiceType());
             statement.setInt(2, entity.getServicePrice());
             statement.setInt(3, entity.getId());
@@ -112,7 +109,7 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
     }
 
     @Override
-    public ArrayList<Service> getServiceByRepairId(int repairId) {
+    public ArrayList<Service> getServicesByRepairId(int repairId) {
         ArrayList<Service> services = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(

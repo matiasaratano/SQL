@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<computerRepairService>
+    <customers>
+        <customer>
+            <customerID>1</customerID>
+            <firstName>Mark</firstName>
+            <lastName>Gary</lastName>
+            <address>123 Street</address>
+            <phone>123321</phone>
+        </customer>
+        <customer>
+            <customerID>2</customerID>
+            <firstName>Mark</firstName>
+            <lastName>Smith</lastName>
+            <address>123 Ave</address>
+            <phone>123</phone>
+        </customer>
+    </customers>
+    <services>
+        <service>
+            <serviceID>1</serviceID>
+            <serviceType>Computer Repair</serviceType>
+            <servicePrice>100</servicePrice>
+        </service>
+        <service>
+            <serviceID>2</serviceID>
+            <serviceType>Laptop Repair</serviceType>
+            <servicePrice>150</servicePrice>
+        </service>
+    </services>
+    <devices>
+        <device>
+            <deviceID>1</deviceID>
+            <deviceType>Computer</deviceType>
+            <brand>Dell</brand>
+        </device>
+        <device>
+            <deviceID>2</deviceID>
+            <deviceType>Laptop</deviceType>
+            <brand>HP</brand>
+        </device>
+    </devices>
+    <repairs>
+        <repair>
+            <repairID>1</repairID>
+            <customerID>1</customerID>
+            <employeeID>1</employeeID>
+            <serviceID>1</serviceID>
+            <deviceID>1</deviceID>
+            <repairDate>2022-01-01</repairDate>
+        </repair>
+        <repair>
+            <repairID>2</repairID>
+            <customerID>2</customerID>
+            <employeeID>2</employeeID>
+            <serviceID>2</serviceID>
+            <deviceID>2</deviceID>
+            <repairDate>2022-01-02</repairDate>
+        </repair>
+    </repairs>
+    <employees>
+        <employee>
+            <employeeID>1</employeeID>
+            <firstName>Mark</firstName>
+            <lastName>Johnson</lastName>
+            <address>123 St</address>
+            <phone>123</phone>
+            <sector>IT</sector>
+            <hireDate>2021</hireDate>
+            <salary>50000</salary>
+        </employee>
+        <employee>
+            <employeeID>2</employeeID>
+            <firstName>Mark</firstName>
+            <lastName>Williams</lastName>
+            <address>123 St</address>
+            <phone>1238</phone>
+            <sector>IT</sector>
+            <hireDate>2021</hireDate>
+            <salary>60000</salary>
+        </employee>
+    </employees>
+</computerRepairService>

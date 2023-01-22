@@ -33,7 +33,7 @@ public class ConnectionPool implements AutoCloseable {
         dataSource.setUsername(properties.getProperty("username"));
         dataSource.setPassword(properties.getProperty("password"));
         dataSource.setInitialSize(5);
-        
+
     }
 
     public static ConnectionPool getInstance() {

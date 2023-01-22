@@ -15,7 +15,7 @@ import java.util.List;
 
 public class RepairDAO extends MySQLDAO implements IRepairDAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(CustomerDAO.class);
+    private static final Logger LOGGER = LogManager.getLogger(RepairDAO.class);
     private final static String GET_REPAIR = "Select * from RepairService.Repairs where RepairID=?";
     private final static String GET_ALL_REPAIRS = "Select * FROM RepairService.Repairs";
     private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (`CustomerID`, `EmployeeID`, `ServiceID`, `DeviceID`, `RepairDate`)  VALUES (?, ?, ?, ?, ?)";
@@ -29,9 +29,9 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
 
     @Override
     public Repair getEntityById(int id) throws SQLException {
-        Connection c = ConnectionPool.getInstance().getConnection();
+        //Connection c = ConnectionPool.getInstance().getConnection();
         Repair repair = new Repair();
-        try (PreparedStatement ps = c.prepareStatement(GET_REPAIR)) {
+        try (PreparedStatement ps = connection.prepareStatement(GET_REPAIR)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

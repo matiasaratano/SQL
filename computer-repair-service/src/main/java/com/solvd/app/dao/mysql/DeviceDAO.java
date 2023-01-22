@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
-    private static final Logger LOGGER = LogManager.getLogger(CustomerDAO.class);
+    private static final Logger LOGGER = LogManager.getLogger(DeviceDAO.class);
     private final static String GET_DEVICE = "Select * from RepairService.Devices where deviceID=?";
     private final static String GET_ALL_DEVICES = "SELECT * FROM RepairService.Devices";
     private final static String CREATE_DEVICE = "INSERT INTO Devices (DeviceType, Brand) VALUES (?, ?)";

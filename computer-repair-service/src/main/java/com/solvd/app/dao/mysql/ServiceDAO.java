@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceDAO extends MySQLDAO implements IServiceDAO {
-    private static final Logger LOGGER = LogManager.getLogger(CustomerDAO.class);
+    private static final Logger LOGGER = LogManager.getLogger(ServiceDAO.class);
     private final static String GET_SERVICE = "Select * from RepairService.services where serviceID=?";
     private final static String GET_ALL_SERVICES = "SELECT * FROM RepairService.services";
     private final static String CREATE_SERVICE = "INSERT INTO services (ServiceType, ServicePrice) VALUES (?, ?)";

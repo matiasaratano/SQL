@@ -16,6 +16,7 @@ public class RepairService {
     public RepairService() throws SQLException {
     }
 
+
     public Repair getRepairById(int repairId) throws SQLException {
         Repair repair = repairDAO.getEntityById(repairId);
         repair.setCustomers(customerDAO.getCustomersByRepairId(repairId));

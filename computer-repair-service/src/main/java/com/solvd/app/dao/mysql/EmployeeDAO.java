@@ -15,7 +15,7 @@ import java.util.List;
 
 public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
 
-    private static final Logger LOGGER = LogManager.getLogger(CustomerDAO.class);
+    private static final Logger LOGGER = LogManager.getLogger(EmployeeDAO.class);
     private final static String GET_EMPLOYEE = "Select * from RepairService.Employees where EmployeeID=?";
     private final static String GET_ALL_EMPLOYEES = "SELECT * FROM RepairService.Employees";
     private final static String CREATE_EMPLOYEE = "INSERT INTO Employees (FirstName, LastName, Address, Phone, Sector, HireDate, Salary) VALUES (?, ?, ?, ?, ?, ?, ?)";

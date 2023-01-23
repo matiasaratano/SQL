@@ -52,10 +52,10 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
         try {
             PreparedStatement statement = connection.prepareStatement(CREATE_CUSTOMER);
 
-            statement.setString(1, entity.getFirstName());
-            statement.setString(2, entity.getLastName());
-            statement.setString(3, entity.getAddress());
-            statement.setString(4, entity.getPhone());
+            statement.setString(1, entity.getCustomerFirstName());
+            statement.setString(2, entity.getCustomerLastName());
+            statement.setString(3, entity.getCustomerAddress());
+            statement.setString(4, entity.getCustomerPhone());
             statement.executeUpdate();
             LOGGER.info("Customer created.");
             LOGGER.info(entity);
@@ -67,15 +67,15 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
 
     @Override
     public void updateEntity(Customer entity) {
-        LOGGER.info("Updating customer with id " + entity.getId() + ".");
+        LOGGER.info("Updating customer with id " + entity.getCustomerId() + ".");
         try {
             PreparedStatement statement = connection.prepareStatement(UPDATE_CUSTOMER);
 
-            statement.setString(1, entity.getFirstName());
-            statement.setString(2, entity.getLastName());
-            statement.setString(3, entity.getAddress());
-            statement.setString(4, entity.getPhone());
-            statement.setInt(5, entity.getId());
+            statement.setString(1, entity.getCustomerFirstName());
+            statement.setString(2, entity.getCustomerLastName());
+            statement.setString(3, entity.getCustomerAddress());
+            statement.setString(4, entity.getCustomerPhone());
+            statement.setInt(5, entity.getCustomerId());
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

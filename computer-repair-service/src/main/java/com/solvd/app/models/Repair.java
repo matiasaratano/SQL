@@ -1,14 +1,28 @@
 package com.solvd.app.models;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlRootElement(name = "repair")
 public class Repair {
+    @XmlElement(name = "repairId")
     private int id;
+    @XmlElementWrapper(name = "customers")
+    @XmlElement(name = "customer")
     private List<Customer> customers;
+    @XmlElementWrapper(name = "employees")
+    @XmlElement(name = "employee")
     private List<Employee> employees;
+    @XmlElementWrapper(name = "services")
+    @XmlElement(name = "service")
     private List<Service> services;
+    @XmlElementWrapper(name = "devices")
+    @XmlElement(name = "device")
     private List<Device> devices;
+    @XmlElement
     private String repairDate;
 
     public Repair() {

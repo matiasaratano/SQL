@@ -5,11 +5,12 @@ import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import java.io.File;
+import java.io.IOException;
 
 public class XMLValidator {
 
@@ -17,26 +18,37 @@ public class XMLValidator {
 
     public static void main(String[] args) {
         try {
-            // Create a SAXParserFactory
-            SAXParserFactory factory = SAXParserFactory.newInstance();
+            //
+            String xsdPath = "./src/main/resources/xmlFiles/schema.xsd";
+            String xmlPath = "./src/main/resources/xmlFiles/schema.xml";
+            boolean valid = validateXMLSchema(xsdPath, xmlPath);
+            LOGGER.info(String.format("XML file is %s", (valid ? "valid." : "invalid.")));
 
-            // Set the schema to use for validation
-            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = schemaFactory.newSchema(new File("./src/main/resources/xmlFiles/schema.xsd"));
-            factory.setSchema(schema);
+
+            // Create a SAXParserFactory
+            //SAXParserFactory factory = SAXParserFactory.newInstance();
 
             // Create a SAXParser
-            SAXParser parser = factory.newSAXParser();
+            //SAXParser parser = factory.newSAXParser();
 
-            // Parse the XML file and validate it against the schema
-            parser.parse("./src/main/resources/xmlFiles/schema.xml", new MyHandler());
+            //parser.parse("./src/main/resources/xmlFiles/schema.xml", new MyHandler());
 
-            LOGGER.info("XML file is valid against the schema.");
+            //LOGGER.info("XML file is valid against the schema.");
         } catch (SAXException e) {
-            LOGGER.info("XML file is not valid against the schema.");
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+    }
+
+    public static boolean validateXMLSchema(String xsdPath, String xmlPath) throws SAXException {
+        try {
+            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = factory.newSchema(new File(xsdPath));
+            Validator validator = schema.newValidator();
+            validator.validate(new StreamSource(new File(xmlPath)));
+        } catch (IOException e) {
+            LOGGER.error("Exception: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 }

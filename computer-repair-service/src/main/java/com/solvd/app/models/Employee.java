@@ -1,13 +1,26 @@
 package com.solvd.app.models;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "employee")
 public class Employee {
+    @XmlElement(name = "employeeID")
     private int id;
+    @XmlElement
     private String firstName;
+    @XmlElement
     private String lastName;
+    @XmlElement
     private String address;
+    @XmlElement
     private String phone;
+    @XmlElement
     private String sector;
+    @XmlElement
     private int salary;
+    @XmlElement
+    //@XmlJavaTypeAdapter(DateAdapter.class)
     private String hireDate;
 
 

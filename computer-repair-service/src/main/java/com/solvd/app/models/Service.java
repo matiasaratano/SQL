@@ -1,8 +1,15 @@
 package com.solvd.app.models;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "service")
 public class Service {
+    @XmlElement(name = "serviceID")
     private int id;
+    @XmlElement
     private String serviceType;
+    @XmlElement
     private int servicePrice;
 
     public Service() {

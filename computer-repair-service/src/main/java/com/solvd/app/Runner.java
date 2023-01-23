@@ -44,11 +44,10 @@ public class Runner {
             //rs.createRepair(repair);
             //Repair repair = new Repair(customerDAO.getCustomersByRepairId(1), employeeDAO.getEmployeesByRepairId(1), serviceDAO.getServicesByRepairId(1), deviceDAO.getDevicesByRepairId(1), "2021");
             //repairService.createRepair(repair);
-
-
             ConnectionPool.getInstance().close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        } finally {
+
         }
     }
 }

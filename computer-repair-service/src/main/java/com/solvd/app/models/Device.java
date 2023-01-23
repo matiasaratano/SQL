@@ -1,8 +1,15 @@
 package com.solvd.app.models;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "device")
 public class Device {
+    @XmlElement(name = "deviceID")
     private int id;
+    @XmlElement
     private String deviceType;
+    @XmlElement
     private String brand;
 
     public Device() {

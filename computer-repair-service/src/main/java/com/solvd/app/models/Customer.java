@@ -1,10 +1,19 @@
 package com.solvd.app.models;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "customer")
 public class Customer {
+    @XmlElement(name = "customerID")
     private int id;
+    @XmlElement
     private String firstName;
+    @XmlElement
     private String lastName;
+    @XmlElement
     private String address;
+    @XmlElement
     private String phone;
 
     public Customer() {
@@ -25,7 +34,7 @@ public class Customer {
         this.phone = phone;
     }
 
-    public int getId() {
+    public int getCustomerId() {
         return id;
     }
 
@@ -33,7 +42,7 @@ public class Customer {
         this.id = id;
     }
 
-    public String getFirstName() {
+    public String getCustomerFirstName() {
         return firstName;
     }
 
@@ -41,7 +50,7 @@ public class Customer {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public String getCustomerLastName() {
         return lastName;
     }
 
@@ -49,7 +58,7 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
+    public String getCustomerAddress() {
         return address;
     }
 
@@ -57,7 +66,7 @@ public class Customer {
         this.address = address;
     }
 
-    public String getPhone() {
+    public String getCustomerPhone() {
         return phone;
     }
 

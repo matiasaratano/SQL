@@ -1,6 +1,5 @@
 package com.solvd.app;
 
-import com.solvd.app.service.RepairService;
 import com.solvd.app.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +15,7 @@ public class Runner {
         //ServiceDAO serviceDAO = new ServiceDAO();
         //DeviceDAO deviceDAO = new DeviceDAO();
         //EmployeeDAO employeeDAO = new EmployeeDAO();
-        RepairService repairService = new RepairService();
+        //RepairService repairService = new RepairService();
         try {
             //Create test
             //Customer customer = new Customer("Mark", "T", "123", "123");

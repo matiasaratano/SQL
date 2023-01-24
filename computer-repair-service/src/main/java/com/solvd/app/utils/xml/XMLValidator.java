@@ -19,8 +19,8 @@ public class XMLValidator {
     public static void main(String[] args) {
         try {
             //
-            String xsdPath = "./src/main/resources/xmlFiles/schema.xsd";
-            String xmlPath = "./src/main/resources/xmlFiles/schema.xml";
+            String xsdPath = "./src/main/resources/xml.files/schema.xsd";
+            String xmlPath = "./src/main/resources/xml.files/schema.xml";
             boolean valid = validateXMLSchema(xsdPath, xmlPath);
             LOGGER.info(String.format("XML file is %s", (valid ? "valid." : "invalid.")));
 
@@ -32,8 +32,6 @@ public class XMLValidator {
             //SAXParser parser = factory.newSAXParser();
 
             //parser.parse("./src/main/resources/xmlFiles/schema.xml", new MyHandler());
-
-            //LOGGER.info("XML file is valid against the schema.");
         } catch (SAXException e) {
             throw new RuntimeException(e);
         }

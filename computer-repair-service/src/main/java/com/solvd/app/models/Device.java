@@ -1,14 +1,18 @@
 package com.solvd.app.models;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "device")
 public class Device {
+    @JsonProperty("deviceID")
     @XmlElement(name = "deviceID")
     private int id;
+    @JsonProperty("deviceType")
     @XmlElement
     private String deviceType;
+    @JsonProperty("brand")
     @XmlElement
     private String brand;
 
@@ -27,6 +31,7 @@ public class Device {
         this.brand = brand;
     }
 
+    @JsonProperty("deviceID")
     public int getId() {
         return id;
     }
@@ -35,6 +40,7 @@ public class Device {
         this.id = id;
     }
 
+    @JsonProperty("deviceType")
     public String getDeviceType() {
         return deviceType;
     }
@@ -43,6 +49,7 @@ public class Device {
         this.deviceType = deviceType;
     }
 
+    @JsonProperty("brand")
     public String getBrand() {
         return brand;
     }

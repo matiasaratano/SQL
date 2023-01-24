@@ -1,27 +1,36 @@
 package com.solvd.app.models;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement(name = "repair")
 public class Repair {
+    @JsonProperty("repairId")
     @XmlElement(name = "repairId")
     private int id;
+    @JsonProperty("customers")
     @XmlElementWrapper(name = "customers")
     @XmlElement(name = "customer")
     private List<Customer> customers;
+    @JsonProperty("employees")
     @XmlElementWrapper(name = "employees")
     @XmlElement(name = "employee")
     private List<Employee> employees;
+    @JsonProperty("services")
     @XmlElementWrapper(name = "services")
     @XmlElement(name = "service")
     private List<Service> services;
+    @JsonProperty("devices")
     @XmlElementWrapper(name = "devices")
     @XmlElement(name = "device")
     private List<Device> devices;
+
+    @JsonProperty("repairDate")
     @XmlElement
     private String repairDate;
 
@@ -44,6 +53,7 @@ public class Repair {
         this.devices = new ArrayList<>();
     }
 
+    @JsonProperty("repairId")
     public int getId() {
         return id;
     }
@@ -52,23 +62,27 @@ public class Repair {
         this.id = id;
     }
 
-
+    @JsonProperty("repairDate")
     public String getRepairDate() {
         return repairDate;
     }
 
+    @JsonProperty("customers")
     public List<Customer> getCustomers() {
         return customers;
     }
 
+    @JsonProperty("employees")
     public List<Employee> getEmployees() {
         return employees;
     }
 
+    @JsonProperty("services")
     public List<Service> getServices() {
         return services;
     }
 
+    @JsonProperty("devices")
     public List<Device> getDevices() {
         return devices;
     }

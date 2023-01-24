@@ -1,24 +1,34 @@
 package com.solvd.app.models;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "employee")
 public class Employee {
+
+    @JsonProperty("employeeID")
     @XmlElement(name = "employeeID")
     private int id;
+    @JsonProperty("firstName")
     @XmlElement
     private String firstName;
+    @JsonProperty("lastName")
     @XmlElement
     private String lastName;
+    @JsonProperty("address")
     @XmlElement
     private String address;
+    @JsonProperty("phone")
     @XmlElement
     private String phone;
+    @JsonProperty("sector")
     @XmlElement
     private String sector;
+    @JsonProperty("salary")
     @XmlElement
     private int salary;
+    @JsonProperty("hireDate")
     @XmlElement
     //@XmlJavaTypeAdapter(DateAdapter.class)
     private String hireDate;
@@ -48,6 +58,7 @@ public class Employee {
         this.salary = salary;
     }
 
+    @JsonProperty("firstName")
     public String getFirstName() {
         return firstName;
     }
@@ -56,6 +67,7 @@ public class Employee {
         this.firstName = firstName;
     }
 
+    @JsonProperty("lastName")
     public String getLastName() {
         return lastName;
     }
@@ -64,6 +76,7 @@ public class Employee {
         this.lastName = lastName;
     }
 
+    @JsonProperty("address")
     public String getAddress() {
         return address;
     }
@@ -72,6 +85,7 @@ public class Employee {
         this.address = address;
     }
 
+    @JsonProperty("phone")
     public String getPhone() {
         return phone;
     }
@@ -80,6 +94,7 @@ public class Employee {
         this.phone = phone;
     }
 
+    @JsonProperty("sector")
     public String getSector() {
         return sector;
     }
@@ -88,6 +103,7 @@ public class Employee {
         this.sector = sector;
     }
 
+    @JsonProperty("salary")
     public int getSalary() {
         return salary;
     }
@@ -96,6 +112,7 @@ public class Employee {
         this.salary = salary;
     }
 
+    @JsonProperty("hireDate")
     public String getHireDate() {
         return hireDate;
     }
@@ -104,6 +121,7 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
+    @JsonProperty("employeeID")
     public int getId() {
         return id;
     }

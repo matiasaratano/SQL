@@ -1,0 +1,9 @@
+{
+  "customer": {
+    "customerID": 1,
+    "firstName": "Bob",
+    "lastName": "Builder",
+    "address": "789 Elm St",
+    "phone": "555-555-5557"
+  }
+}

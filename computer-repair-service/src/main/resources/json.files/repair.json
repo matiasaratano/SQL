@@ -1,0 +1,41 @@
+{
+  "repair": {
+    "repairID": 1,
+    "customers": [
+      {
+        "customerID": 1,
+        "firstName": "Bob",
+        "lastName": "Builder",
+        "address": "789 Elm St",
+        "phone": "555-555-5557"
+      }
+    ],
+    "employees": [
+      {
+        "employeeID": 1,
+        "firstName": "John",
+        "lastName": "Smith",
+        "address": "123 Main St",
+        "phone": "555-555-5555",
+        "sector": "IT",
+        "hireDate": "01/01/2020",
+        "salary": 50000
+      }
+    ],
+    "services": [
+      {
+        "serviceID": 1,
+        "serviceType": "Computer Repair",
+        "servicePrice": 100
+      }
+    ],
+    "devices": [
+      {
+        "deviceID": 1,
+        "deviceType": "Laptop",
+        "brand": "Dell"
+      }
+    ],
+    "repairDate": "01/01/2021"
+  }
+}

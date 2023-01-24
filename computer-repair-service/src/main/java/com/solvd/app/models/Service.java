@@ -1,14 +1,19 @@
 package com.solvd.app.models;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "service")
 public class Service {
+
+    @JsonProperty("serviceID")
     @XmlElement(name = "serviceID")
     private int id;
+    @JsonProperty("serviceType")
     @XmlElement
     private String serviceType;
+    @JsonProperty("servicePrice")
     @XmlElement
     private int servicePrice;
 
@@ -26,6 +31,7 @@ public class Service {
         this.servicePrice = servicePrice;
     }
 
+    @JsonProperty("serviceID")
     public int getId() {
         return id;
     }
@@ -34,6 +40,7 @@ public class Service {
         this.id = id;
     }
 
+    @JsonProperty("serviceType")
     public String getServiceType() {
         return serviceType;
     }
@@ -42,6 +49,7 @@ public class Service {
         this.serviceType = serviceType;
     }
 
+    @JsonProperty("servicePrice")
     public int getServicePrice() {
         return servicePrice;
     }

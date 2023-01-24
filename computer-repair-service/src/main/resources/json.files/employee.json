@@ -1,0 +1,12 @@
+{
+  "employee": {
+    "employeeID": 1,
+    "firstName": "John",
+    "lastName": "Smith",
+    "address": "123 Main St",
+    "phone": "555-555-5555",
+    "sector": "IT",
+    "hireDate": "01/01/2020",
+    "salary": 50000
+  }
+}

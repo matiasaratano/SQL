@@ -1,0 +1,7 @@
+{
+  "service": {
+    "serviceID": 1,
+    "serviceType": "Computer Repair",
+    "servicePrice": 100
+  }
+}

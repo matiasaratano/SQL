@@ -12,17 +12,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class JAXBTask {
-    private final static Logger LOGGER = LogManager.getLogger(JAXBTask.class);
+public class JaxbTask {
+    private final static Logger LOGGER = LogManager.getLogger(JaxbTask.class);
 
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
         Customer customer = new Customer(1, "Marksss", "T", "123", "234");
 
         JAXBContext c = JAXBContext.newInstance(Customer.class);
         Marshaller m = c.createMarshaller();
-        m.marshal(customer, new File("./src/main/resources/xmlFiles/customer.xml"));
+        m.marshal(customer, new File("./src/main/resources/xml.files/customer.xml"));
         Unmarshaller um = c.createUnmarshaller();
-        Customer cu = (Customer) um.unmarshal(new FileReader("./src/main/resources/xmlFiles/customer.xml"));
+        Customer cu = (Customer) um.unmarshal(new FileReader("./src/main/resources/xml.files/customer.xml"));
         LOGGER.info(cu);
+
+
     }
 }

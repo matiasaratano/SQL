@@ -50,7 +50,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     public Repair createEntity(Repair entity) {
         try {
             PreparedStatement statement = connection.prepareStatement(CREATE_REPAIR);
-            statement.setString(1, entity.getRepairDate());
+            statement.setString(1, entity.getDate());
             statement.executeUpdate();
             LOGGER.info("Repair created.");
         } catch (SQLException e) {
@@ -62,12 +62,12 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
 
     @Override
     public void updateEntity(Repair entity) {
-        LOGGER.info("Updating repair with id " + entity.getId() + ".");
+        LOGGER.info("Updating repair with id " + entity.getRepairId() + ".");
         try {
             PreparedStatement statement = connection.prepareStatement(UPDATE_REPAIR);
 
-            statement.setString(1, entity.getRepairDate());
-            statement.setInt(2, entity.getId());
+            statement.setString(1, entity.getDate());
+            statement.setInt(2, entity.getRepairId());
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

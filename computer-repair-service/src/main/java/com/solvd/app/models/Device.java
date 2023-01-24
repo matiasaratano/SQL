@@ -32,7 +32,7 @@ public class Device {
     }
 
     @JsonProperty("deviceID")
-    public int getId() {
+    public int getDeviceId() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class Device {
     }
 
     @JsonProperty("deviceType")
-    public String getDeviceType() {
+    public String getType() {
         return deviceType;
     }
 
@@ -50,7 +50,7 @@ public class Device {
     }
 
     @JsonProperty("brand")
-    public String getBrand() {
+    public String getDeviceBrand() {
         return brand;
     }
 

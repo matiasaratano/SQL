@@ -49,8 +49,8 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
         try {
             PreparedStatement statement = connection.prepareStatement(CREATE_DEVICE);
 
-            statement.setString(1, entity.getDeviceType());
-            statement.setString(2, entity.getBrand());
+            statement.setString(1, entity.getType());
+            statement.setString(2, entity.getDeviceBrand());
             statement.executeUpdate();
             LOGGER.info("Device created.");
             LOGGER.info(entity);
@@ -62,13 +62,13 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
 
     @Override
     public void updateEntity(Device entity) {
-        LOGGER.info("Updating device with id " + entity.getId() + ".");
+        LOGGER.info("Updating device with id " + entity.getDeviceId() + ".");
         try {
             PreparedStatement statement = connection.prepareStatement(UPDATE_DEVICE);
 
-            statement.setString(1, entity.getDeviceType());
-            statement.setString(2, entity.getBrand());
-            statement.setInt(3, entity.getId());
+            statement.setString(1, entity.getType());
+            statement.setString(2, entity.getDeviceBrand());
+            statement.setInt(3, entity.getDeviceId());
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

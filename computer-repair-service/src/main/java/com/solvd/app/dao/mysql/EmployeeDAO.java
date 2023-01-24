@@ -55,13 +55,13 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
         try {
             PreparedStatement statement = connection.prepareStatement(CREATE_EMPLOYEE);
 
-            statement.setString(1, entity.getFirstName());
-            statement.setString(2, entity.getLastName());
-            statement.setString(3, entity.getAddress());
-            statement.setString(4, entity.getPhone());
-            statement.setString(5, entity.getSector());
-            statement.setString(6, entity.getHireDate());
-            statement.setInt(7, entity.getSalary());
+            statement.setString(1, entity.getEmployeeFirstName());
+            statement.setString(2, entity.getEmployeeLastName());
+            statement.setString(3, entity.getEmployeeAddress());
+            statement.setString(4, entity.getEmployeePhone());
+            statement.setString(5, entity.getEmployeeSector());
+            statement.setString(6, entity.getEmployeeHireDate());
+            statement.setInt(7, entity.getEmployeeSalary());
             statement.executeUpdate();
             LOGGER.info("Employee created.");
             LOGGER.info(entity);
@@ -73,18 +73,18 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
 
     @Override
     public void updateEntity(Employee entity) {
-        LOGGER.info("Updating employee with id " + entity.getId() + ".");
+        LOGGER.info("Updating employee with id " + entity.getEmployeeId() + ".");
         try {
             PreparedStatement statement = connection.prepareStatement(UPDATE_EMPLOYEE);
 
-            statement.setString(1, entity.getFirstName());
-            statement.setString(2, entity.getLastName());
-            statement.setString(3, entity.getAddress());
-            statement.setString(4, entity.getPhone());
-            statement.setString(5, entity.getSector());
-            statement.setString(6, entity.getHireDate());
-            statement.setInt(7, entity.getSalary());
-            statement.setInt(8, entity.getId());
+            statement.setString(1, entity.getEmployeeFirstName());
+            statement.setString(2, entity.getEmployeeLastName());
+            statement.setString(3, entity.getEmployeeAddress());
+            statement.setString(4, entity.getEmployeePhone());
+            statement.setString(5, entity.getEmployeeSector());
+            statement.setString(6, entity.getEmployeeHireDate());
+            statement.setInt(7, entity.getEmployeeSalary());
+            statement.setInt(8, entity.getEmployeeId());
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

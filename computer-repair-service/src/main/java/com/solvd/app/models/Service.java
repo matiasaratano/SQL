@@ -32,7 +32,7 @@ public class Service {
     }
 
     @JsonProperty("serviceID")
-    public int getId() {
+    public int getServiceId() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class Service {
     }
 
     @JsonProperty("serviceType")
-    public String getServiceType() {
+    public String getType() {
         return serviceType;
     }
 
@@ -50,7 +50,7 @@ public class Service {
     }
 
     @JsonProperty("servicePrice")
-    public int getServicePrice() {
+    public int getPrice() {
         return servicePrice;
     }
 

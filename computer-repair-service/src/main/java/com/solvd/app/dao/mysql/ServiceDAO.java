@@ -49,8 +49,8 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
         try {
             PreparedStatement statement = connection.prepareStatement(CREATE_SERVICE);
 
-            statement.setString(1, entity.getServiceType());
-            statement.setInt(2, entity.getServicePrice());
+            statement.setString(1, entity.getType());
+            statement.setInt(2, entity.getPrice());
             statement.executeUpdate();
             LOGGER.info("Service created.");
             LOGGER.info(entity);
@@ -62,12 +62,12 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
 
     @Override
     public void updateEntity(Service entity) {
-        LOGGER.info("Updating service with id " + entity.getId() + ".");
+        LOGGER.info("Updating service with id " + entity.getServiceId() + ".");
         try {
             PreparedStatement statement = connection.prepareStatement(UPDATE_SERVICE);
-            statement.setString(1, entity.getServiceType());
-            statement.setInt(2, entity.getServicePrice());
-            statement.setInt(3, entity.getId());
+            statement.setString(1, entity.getType());
+            statement.setInt(2, entity.getPrice());
+            statement.setInt(3, entity.getServiceId());
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

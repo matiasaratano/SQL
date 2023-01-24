@@ -54,7 +54,7 @@ public class Repair {
     }
 
     @JsonProperty("repairId")
-    public int getId() {
+    public int getRepairId() {
         return id;
     }
 
@@ -63,27 +63,27 @@ public class Repair {
     }
 
     @JsonProperty("repairDate")
-    public String getRepairDate() {
+    public String getDate() {
         return repairDate;
     }
 
     @JsonProperty("customers")
-    public List<Customer> getCustomers() {
+    public List<Customer> getRepairCustomers() {
         return customers;
     }
 
     @JsonProperty("employees")
-    public List<Employee> getEmployees() {
+    public List<Employee> getRepairEmployees() {
         return employees;
     }
 
     @JsonProperty("services")
-    public List<Service> getServices() {
+    public List<Service> getRepairServices() {
         return services;
     }
 
     @JsonProperty("devices")
-    public List<Device> getDevices() {
+    public List<Device> getRepairDevices() {
         return devices;
     }
 

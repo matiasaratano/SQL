@@ -59,7 +59,7 @@ public class Employee {
     }
 
     @JsonProperty("firstName")
-    public String getFirstName() {
+    public String getEmployeeFirstName() {
         return firstName;
     }
 
@@ -68,7 +68,7 @@ public class Employee {
     }
 
     @JsonProperty("lastName")
-    public String getLastName() {
+    public String getEmployeeLastName() {
         return lastName;
     }
 
@@ -77,7 +77,7 @@ public class Employee {
     }
 
     @JsonProperty("address")
-    public String getAddress() {
+    public String getEmployeeAddress() {
         return address;
     }
 
@@ -86,7 +86,7 @@ public class Employee {
     }
 
     @JsonProperty("phone")
-    public String getPhone() {
+    public String getEmployeePhone() {
         return phone;
     }
 
@@ -95,7 +95,7 @@ public class Employee {
     }
 
     @JsonProperty("sector")
-    public String getSector() {
+    public String getEmployeeSector() {
         return sector;
     }
 
@@ -104,7 +104,7 @@ public class Employee {
     }
 
     @JsonProperty("salary")
-    public int getSalary() {
+    public int getEmployeeSalary() {
         return salary;
     }
 
@@ -113,7 +113,7 @@ public class Employee {
     }
 
     @JsonProperty("hireDate")
-    public String getHireDate() {
+    public String getEmployeeHireDate() {
         return hireDate;
     }
 
@@ -122,7 +122,7 @@ public class Employee {
     }
 
     @JsonProperty("employeeID")
-    public int getId() {
+    public int getEmployeeId() {
         return id;
     }
 

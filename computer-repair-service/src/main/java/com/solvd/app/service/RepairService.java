@@ -32,20 +32,20 @@ public class RepairService {
 
     public Repair createRepair(Repair newRepair) {
         Repair repair = repairDAO.createEntity(newRepair);
-        repair.setCustomers(customerDAO.getCustomersByRepairId(newRepair.getId()));
-        repair.setEmployees(employeeDAO.getEmployeesByRepairId(newRepair.getId()));
-        repair.setServices(serviceDAO.getServicesByRepairId(newRepair.getId()));
-        repair.setDevices(deviceDAO.getDevicesByRepairId(newRepair.getId()));
+        repair.setCustomers(customerDAO.getCustomersByRepairId(newRepair.getRepairId()));
+        repair.setEmployees(employeeDAO.getEmployeesByRepairId(newRepair.getRepairId()));
+        repair.setServices(serviceDAO.getServicesByRepairId(newRepair.getRepairId()));
+        repair.setDevices(deviceDAO.getDevicesByRepairId(newRepair.getRepairId()));
         return repair;
     }
 
     public void updateRepair(Repair newRepair) throws SQLException {
         repairDAO.updateEntity(newRepair);
-        Repair repair = repairDAO.getEntityById(newRepair.getId());
-        repair.setCustomers(customerDAO.getCustomersByRepairId(newRepair.getId()));
-        repair.setEmployees(employeeDAO.getEmployeesByRepairId(newRepair.getId()));
-        repair.setServices(serviceDAO.getServicesByRepairId(newRepair.getId()));
-        repair.setDevices(deviceDAO.getDevicesByRepairId(newRepair.getId()));
+        Repair repair = repairDAO.getEntityById(newRepair.getRepairId());
+        repair.setCustomers(customerDAO.getCustomersByRepairId(newRepair.getRepairId()));
+        repair.setEmployees(employeeDAO.getEmployeesByRepairId(newRepair.getRepairId()));
+        repair.setServices(serviceDAO.getServicesByRepairId(newRepair.getRepairId()));
+        repair.setDevices(deviceDAO.getDevicesByRepairId(newRepair.getRepairId()));
     }
 
 }

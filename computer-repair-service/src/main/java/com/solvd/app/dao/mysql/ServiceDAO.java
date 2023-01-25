@@ -2,11 +2,9 @@ package com.solvd.app.dao.mysql;
 
 import com.solvd.app.dao.IServiceDAO;
 import com.solvd.app.models.Service;
-import com.solvd.app.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,10 +19,9 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
     private final static String UPDATE_SERVICE = "UPDATE RepairService.services SET ServiceType = ?, ServicePrice=? WHERE serviceID= ?";
     private final static String DELETE_SERVICE = "DELETE FROM RepairService.services WHERE serviceId= ?";
     private final static String SERVICE_BY_REPAIR = "SELECT services.* FROM services INNER JOIN repairs ON services.ServiceID = repairs.serviceID WHERE repairs.RepairID = ?";
-    private final Connection connection;
+
 
     public ServiceDAO() throws SQLException {
-        this.connection = ConnectionPool.getInstance().getConnection();
     }
 
     @Override

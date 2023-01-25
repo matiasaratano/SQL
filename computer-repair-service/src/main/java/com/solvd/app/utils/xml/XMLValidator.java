@@ -24,7 +24,6 @@ public class XMLValidator {
             boolean valid = validateXMLSchema(xsdPath, xmlPath);
             LOGGER.info(String.format("XML file is %s", (valid ? "valid." : "invalid.")));
 
-
             // Create a SAXParserFactory
             //SAXParserFactory factory = SAXParserFactory.newInstance();
 

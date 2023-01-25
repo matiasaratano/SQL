@@ -47,8 +47,6 @@ public class MyHandler extends DefaultHandler {
                 String lastName = attributes.getValue("lastName");
                 String address = attributes.getValue("address");
                 String phone = attributes.getValue("phone");
-
-                //create a new customer object and add it to the list
                 Customer customer = new Customer(id, firstName, lastName, address, phone);
                 customers.add(customer);
                 break;
@@ -70,8 +68,6 @@ public class MyHandler extends DefaultHandler {
                 int sId = Integer.parseInt(attributes.getValue("id"));
                 String serviceType = attributes.getValue("serviceType");
                 int servicePrice = Integer.parseInt(attributes.getValue("servicePrice"));
-
-                //create a new service object and add it to the list
                 Service service = new Service(sId, serviceType, servicePrice);
                 services.add(service);
                 break;
@@ -80,8 +76,6 @@ public class MyHandler extends DefaultHandler {
                 int dId = Integer.parseInt(attributes.getValue("id"));
                 String deviceType = attributes.getValue("deviceType");
                 String brand = attributes.getValue("brand");
-
-                //create a new device object and add it to the list
                 Device device = new Device(dId, deviceType, brand);
                 devices.add(device);
                 break;
@@ -95,8 +89,6 @@ public class MyHandler extends DefaultHandler {
                 String sector = attributes.getValue("sector");
                 String hireDate = attributes.getValue("hireDate");
                 int salary = Integer.parseInt(attributes.getValue("salary"));
-
-                //create a new employee object and add it to the list
                 Employee employee = new Employee(eId, eFirstName, eLastName, eAddress, ePhone, sector, hireDate, salary);
                 employees.add(employee);
                 break;
@@ -109,7 +101,6 @@ public class MyHandler extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        //super.endElement(uri, localName, qName);
         currentElement = "";
         switch (qName) {
             case "customer":
@@ -135,7 +126,6 @@ public class MyHandler extends DefaultHandler {
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        //super.characters(ch, start, length);
         String value = new String(ch, start, length).trim();
         if (value.length() == 0) return;
         if (inCustomer) {

@@ -1,1 +1,7 @@
-{"customerID":1,"firstName":"Marksss","lastName":"T","address":"123","phone":"234"}
+{
+  "customerID" : 1,
+  "firstName" : "Marksss",
+  "lastName" : "T",
+  "address" : "123",
+  "phone" : "234"
+}

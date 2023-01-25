@@ -2,11 +2,9 @@ package com.solvd.app.dao.mysql;
 
 import com.solvd.app.dao.IRepairDAO;
 import com.solvd.app.models.Repair;
-import com.solvd.app.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,10 +21,9 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     // private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (customerId, employeeid, serviceid, deviceid,RepairDate)  VALUES (1,1,1,1,?)";
     private final static String UPDATE_REPAIR = "UPDATE RepairService.Repairs SET  RepairDate=? WHERE repairID= ?";
     private final static String DELETE_REPAIR = "DELETE FROM RepairService.Repairs WHERE repairID= ?";
-    private final Connection connection;
+
 
     public RepairDAO() throws SQLException {
-        this.connection = ConnectionPool.getInstance().getConnection();
     }
 
     @Override

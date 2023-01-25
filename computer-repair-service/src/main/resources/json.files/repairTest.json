@@ -1,1 +1,18 @@
-{"repairId":0,"customers":[{"customerID":1,"firstName":"Marksss","lastName":"T","address":"123","phone":"234"}],"employees":[],"services":[],"devices":[{"deviceID":1,"deviceType":"mobile","brand":"nokia"}],"repairDate":"2021"}
+{
+  "repairId" : 0,
+  "customers" : [ {
+    "customerID" : 1,
+    "firstName" : "Marksss",
+    "lastName" : "T",
+    "address" : "123",
+    "phone" : "234"
+  } ],
+  "employees" : [ ],
+  "services" : [ ],
+  "devices" : [ {
+    "deviceID" : 1,
+    "deviceType" : "mobile",
+    "brand" : "nokia"
+  } ],
+  "repairDate" : "2021"
+}

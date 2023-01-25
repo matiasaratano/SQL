@@ -2,11 +2,9 @@ package com.solvd.app.dao.mysql;
 
 import com.solvd.app.dao.ICustomerDAO;
 import com.solvd.app.models.Customer;
-import com.solvd.app.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,14 +20,13 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     private final static String UPDATE_CUSTOMER = "UPDATE RepairService.Customers SET FirstName = ?, LastName=?, Address = ?, Phone=? WHERE customerID= ?";
     private final static String DELETE_CUSTOMER = "DELETE FROM RepairService.Customers WHERE customerId= ?";
     private final static String CUSTOMER_BY_REPAIR = "SELECT customers.* FROM customers INNER JOIN repairs ON customers.CustomerID = repairs.CustomerID WHERE repairs.RepairID = ?";
-    private final Connection connection;
+
 
     public CustomerDAO() throws SQLException {
-        this.connection = ConnectionPool.getInstance().getConnection();
     }
 
     @Override
-    public Customer getEntityById(int id) throws SQLException {
+    public Customer getEntityById(int id) {
         Customer customer = new Customer();
         try (PreparedStatement ps = connection.prepareStatement(GET_CUSTOMER)) {
             ps.setInt(1, id);

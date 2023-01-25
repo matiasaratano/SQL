@@ -39,6 +39,7 @@ public class JaxbTask {
         //Repair Object with Collections
         JAXBContext c2 = JAXBContext.newInstance(Repair.class);
         Marshaller m2 = c2.createMarshaller();
+        m2.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         m2.marshal(repair, new File("./src/main/resources/xml.files/repair.xml"));
         Unmarshaller um2 = c2.createUnmarshaller();
         Repair r = (Repair) um2.unmarshal(new FileReader("./src/main/resources/xml.files/repair.xml"));

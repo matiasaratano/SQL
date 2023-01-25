@@ -1,6 +1,7 @@
 package com.solvd.app.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.solvd.app.models.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +28,7 @@ public class JsonTask {
 
         //Logic
         ObjectMapper om = new ObjectMapper();
+        om.enable(SerializationFeature.INDENT_OUTPUT);
         om.writeValue(new File("./src/main/resources/json.files/customerTest.json"), customer);
         om.writeValue(new File("./src/main/resources/json.files/repairTest.json"), repair);
         File file = new File("./src/main/resources/json.files/customerTest.json");

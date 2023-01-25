@@ -2,11 +2,9 @@ package com.solvd.app.dao.mysql;
 
 import com.solvd.app.dao.IDeviceDAO;
 import com.solvd.app.models.Device;
-import com.solvd.app.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,10 +19,9 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
     private final static String UPDATE_DEVICE = "UPDATE RepairService.Devices SET DeviceType = ?, Brand=? WHERE deviceID= ?";
     private final static String DELETE_DEVICE = "DELETE FROM RepairService.Devices WHERE deviceId= ?";
     private final static String DEVICE_BY_REPAIR = "SELECT devices.* FROM devices INNER JOIN repairs ON devices.DeviceID = repairs.DeviceID WHERE repairs.RepairID = ?";
-    private final Connection connection;
+
 
     public DeviceDAO() throws SQLException {
-        this.connection = ConnectionPool.getInstance().getConnection();
     }
 
     @Override

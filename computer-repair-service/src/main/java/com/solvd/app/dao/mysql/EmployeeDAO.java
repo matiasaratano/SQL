@@ -2,11 +2,9 @@ package com.solvd.app.dao.mysql;
 
 import com.solvd.app.dao.IEmployeeDAO;
 import com.solvd.app.models.Employee;
-import com.solvd.app.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,10 +20,9 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     private final static String UPDATE_EMPLOYEE = "UPDATE RepairService.Employees SET FirstName = ?, LastName=?, Address = ?, Phone=?, Sector=?, HireDate=?, Salary=? WHERE EmployeeID= ?";
     private final static String DELETE_EMPLOYEE = "DELETE FROM RepairService.Employees WHERE EmployeeId= ?";
     private final static String EMPLOYEE_BY_REPAIR = "SELECT employees.* FROM employees INNER JOIN repairs ON employees.employeeId = repairs.employeeId WHERE repairs.RepairID = ?";
-    private final Connection connection;
+
 
     public EmployeeDAO() throws SQLException {
-        this.connection = ConnectionPool.getInstance().getConnection();
     }
 
     @Override

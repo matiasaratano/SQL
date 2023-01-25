@@ -1,1 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><customer><customerID>1</customerID><firstName>Marksss</firstName><lastName>T</lastName><address>123</address><phone>234</phone></customer>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer>
+    <customerID>1</customerID>
+    <firstName>Marksss</firstName>
+    <lastName>T</lastName>
+    <address>123</address>
+    <phone>234</phone>
+</customer>

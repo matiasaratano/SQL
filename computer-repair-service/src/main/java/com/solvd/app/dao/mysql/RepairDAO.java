@@ -16,9 +16,9 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     private static final Logger LOGGER = LogManager.getLogger(RepairDAO.class);
     private final static String GET_REPAIR = "Select * from RepairService.Repairs where RepairID=?";
     private final static String GET_ALL_REPAIRS = "Select * FROM RepairService.Repairs";
-    private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (`RepairDate`)  VALUES (?)";
-    // test OK
-    // private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (customerId, employeeid, serviceid, deviceid,RepairDate)  VALUES (1,1,1,1,?)";
+    //private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (`RepairDate`)  VALUES (?)";
+
+    private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (customerId, employeeId, serviceId, deviceId, RepairDate)  VALUES (?,?,?,?,?)";
     private final static String UPDATE_REPAIR = "UPDATE RepairService.Repairs SET  RepairDate=? WHERE repairID= ?";
     private final static String DELETE_REPAIR = "DELETE FROM RepairService.Repairs WHERE repairID= ?";
 
@@ -28,7 +28,6 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
 
     @Override
     public Repair getEntityById(int id) throws SQLException {
-        //Connection c = ConnectionPool.getInstance().getConnection();
         Repair repair = new Repair();
         try (PreparedStatement ps = connection.prepareStatement(GET_REPAIR)) {
             ps.setInt(1, id);
@@ -47,7 +46,11 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     public Repair createEntity(Repair entity) {
         try {
             PreparedStatement statement = connection.prepareStatement(CREATE_REPAIR);
-            statement.setString(1, entity.getDate());
+            statement.setInt(1, entity.getRepairCustomer().getCustomerId());
+            statement.setInt(2, entity.getRepairEmployees().get(0).getEmployeeId());
+            statement.setInt(3, entity.getRepairServices().get(0).getServiceId());
+            statement.setInt(4, entity.getRepairDevice().getDeviceId());
+            statement.setString(5, entity.getDate());
             statement.executeUpdate();
             LOGGER.info("Repair created.");
         } catch (SQLException e) {

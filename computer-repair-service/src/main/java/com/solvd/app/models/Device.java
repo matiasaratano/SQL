@@ -19,6 +19,10 @@ public class Device {
     public Device() {
     }
 
+    public Device(int id) {
+        this.id = id;
+    }
+
     public Device(String deviceType, String brand) {
 
         this.deviceType = deviceType;

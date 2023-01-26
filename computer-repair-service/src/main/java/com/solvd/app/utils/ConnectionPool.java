@@ -26,22 +26,20 @@ public class ConnectionPool implements AutoCloseable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        //Local
         LOGGER.info("Creating connection pool to MySQL database");
         dataSource.setDriverClassName(properties.getProperty("driver"));
-        dataSource.setUrl(properties.getProperty("url"));
-        dataSource.setUsername(properties.getProperty("username"));
-        dataSource.setPassword(properties.getProperty("password"));
-        dataSource.setInitialSize(5);
+
+        //Local
+        //dataSource.setUrl(properties.getProperty("url"));
+        //dataSource.setUsername(properties.getProperty("username"));
+        //dataSource.setPassword(properties.getProperty("password"));
 
         //Remote
-        //LOGGER.info("Creating connection pool to MySQL database");
-        //dataSource.setDriverClassName(properties.getProperty("driver"));
-        //dataSource.setUrl(properties.getProperty("url2"));
-        //dataSource.setUsername(properties.getProperty("username2"));
-        //dataSource.setPassword(properties.getProperty("password2"));
-        //dataSource.setInitialSize(5);
+        dataSource.setUrl(properties.getProperty("url2"));
+        dataSource.setUsername(properties.getProperty("username2"));
+        dataSource.setPassword(properties.getProperty("password2"));
+
+        dataSource.setInitialSize(15);
     }
 
     public static ConnectionPool getInstance() {

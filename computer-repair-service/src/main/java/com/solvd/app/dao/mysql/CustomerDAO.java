@@ -19,7 +19,7 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     private final static String CREATE_CUSTOMER = "INSERT INTO Customers (FirstName, LastName, Address, Phone) VALUES (?, ?, ?, ?)";
     private final static String UPDATE_CUSTOMER = "UPDATE RepairService.Customers SET FirstName = ?, LastName=?, Address = ?, Phone=? WHERE customerID= ?";
     private final static String DELETE_CUSTOMER = "DELETE FROM RepairService.Customers WHERE customerId= ?";
-    private final static String CUSTOMER_BY_REPAIR = "SELECT customers.* FROM customers INNER JOIN repairs ON customers.CustomerID = repairs.CustomerID WHERE repairs.RepairID = ?";
+    private final static String CUSTOMER_BY_REPAIR = "SELECT Customers.* FROM Customers INNER JOIN Repairs ON Customers.CustomerID = Repairs.CustomerID WHERE Repairs.RepairID = ?";
 
 
     public CustomerDAO() throws SQLException {
@@ -55,7 +55,7 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
             statement.setString(4, entity.getCustomerPhone());
             statement.executeUpdate();
             LOGGER.info("Customer created.");
-            LOGGER.info(entity);
+            //LOGGER.info(entity);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
@@ -138,4 +138,23 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
         return customers;
     }
 
+    public Customer getCustomerByRepairId(int repairId) {
+        Customer customer = new Customer();
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    CUSTOMER_BY_REPAIR);
+            statement.setInt(1, repairId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                customer.setId(resultSet.getInt("CustomerID"));
+                customer.setFirstName(resultSet.getString("FirstName"));
+                customer.setLastName(resultSet.getString("LastName"));
+                customer.setAddress(resultSet.getString("Address"));
+                customer.setPhone(resultSet.getString("Phone"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customer;
+    }
 }

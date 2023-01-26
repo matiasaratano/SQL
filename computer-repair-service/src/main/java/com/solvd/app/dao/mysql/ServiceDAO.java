@@ -13,12 +13,12 @@ import java.util.List;
 
 public class ServiceDAO extends MySQLDAO implements IServiceDAO {
     private static final Logger LOGGER = LogManager.getLogger(ServiceDAO.class);
-    private final static String GET_SERVICE = "Select * from RepairService.services where serviceID=?";
-    private final static String GET_ALL_SERVICES = "SELECT * FROM RepairService.services";
-    private final static String CREATE_SERVICE = "INSERT INTO services (ServiceType, ServicePrice) VALUES (?, ?)";
-    private final static String UPDATE_SERVICE = "UPDATE RepairService.services SET ServiceType = ?, ServicePrice=? WHERE serviceID= ?";
-    private final static String DELETE_SERVICE = "DELETE FROM RepairService.services WHERE serviceId= ?";
-    private final static String SERVICE_BY_REPAIR = "SELECT services.* FROM services INNER JOIN repairs ON services.ServiceID = repairs.serviceID WHERE repairs.RepairID = ?";
+    private final static String GET_SERVICE = "Select * from RepairService.Services where serviceID=?";
+    private final static String GET_ALL_SERVICES = "SELECT * FROM RepairService.Services";
+    private final static String CREATE_SERVICE = "INSERT INTO Services (ServiceType, ServicePrice) VALUES (?, ?)";
+    private final static String UPDATE_SERVICE = "UPDATE RepairService.Services SET ServiceType = ?, ServicePrice=? WHERE serviceID= ?";
+    private final static String DELETE_SERVICE = "DELETE FROM RepairService.Services WHERE serviceId= ?";
+    private final static String SERVICE_BY_REPAIR = "SELECT Services.* FROM Services INNER JOIN Repairs ON Services.ServiceID = Repairs.serviceID WHERE Repairs.RepairID = ?";
 
 
     public ServiceDAO() throws SQLException {
@@ -50,7 +50,6 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
             statement.setInt(2, entity.getPrice());
             statement.executeUpdate();
             LOGGER.info("Service created.");
-            LOGGER.info(entity);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }

@@ -6,51 +6,57 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @XmlRootElement(name = "repair")
 public class Repair {
     @JsonProperty("repairId")
     @XmlElement(name = "repairId")
     private int id;
-    @JsonProperty("customers")
-    @XmlElementWrapper(name = "customers")
+    @JsonProperty("customer")
     @XmlElement(name = "customer")
-    private List<Customer> customers;
+    private Customer customer;
     @JsonProperty("employees")
     @XmlElementWrapper(name = "employees")
     @XmlElement(name = "employee")
-    private List<Employee> employees;
+    private ArrayList<Employee> employees;
     @JsonProperty("services")
     @XmlElementWrapper(name = "services")
     @XmlElement(name = "service")
-    private List<Service> services;
-    @JsonProperty("devices")
-    @XmlElementWrapper(name = "devices")
+    private ArrayList<Service> services;
+    @JsonProperty("device")
     @XmlElement(name = "device")
-    private List<Device> devices;
+    private Device device;
 
     @JsonProperty("repairDate")
     @XmlElement
     private String repairDate;
 
     public Repair() {
+        this.employees = new ArrayList<>();
+        this.services = new ArrayList<>();
     }
 
-    public Repair(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Service> services, ArrayList<Device> devices, String repairDate) {
+    public Repair(Customer customer, ArrayList<Employee> employees, ArrayList<Service> services, Device device, String repairDate) {
         this.repairDate = repairDate;
-        this.customers = customers;
+        this.customer = customer;
         this.employees = employees;
         this.services = services;
-        this.devices = devices;
+        this.device = device;
+    }
+
+    public Repair(int id, Customer customer, ArrayList<Employee> employees, ArrayList<Service> services, Device device, String repairDate) {
+        this.repairDate = repairDate;
+        this.id = id;
+        this.customer = customer;
+        this.employees = employees;
+        this.services = services;
+        this.device = device;
     }
 
     public Repair(String repairDate) {
         this.repairDate = repairDate;
-        this.customers = new ArrayList<>();
         this.employees = new ArrayList<>();
         this.services = new ArrayList<>();
-        this.devices = new ArrayList<>();
     }
 
     @JsonProperty("repairId")
@@ -67,55 +73,66 @@ public class Repair {
         return repairDate;
     }
 
-    @JsonProperty("customers")
-    public List<Customer> getRepairCustomers() {
-        return customers;
+    @JsonProperty("customer")
+    public Customer getRepairCustomer() {
+        return customer;
     }
 
     @JsonProperty("employees")
-    public List<Employee> getRepairEmployees() {
+    public ArrayList<Employee> getRepairEmployees() {
         return employees;
     }
 
     @JsonProperty("services")
-    public List<Service> getRepairServices() {
+    public ArrayList<Service> getRepairServices() {
         return services;
     }
 
-    @JsonProperty("devices")
-    public List<Device> getRepairDevices() {
-        return devices;
+    @JsonProperty("device")
+    public Device getRepairDevice() {
+        return device;
     }
 
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public void setEmployees(List<Employee> employees) {
+
+    public void setEmployees(ArrayList<Employee> employees) {
         this.employees = employees;
     }
 
-    public void setServices(List<Service> services) {
+    public void setEmployee(Employee employee) {
+        this.employees.add(employee);
+    }
+
+
+    public void setServices(ArrayList<Service> services) {
         this.services = services;
     }
 
-    public void setDevices(List<Device> devices) {
-        this.devices = devices;
+    public void setService(Service service) {
+        this.services.add(service);
+    }
+
+
+    public void setDevice(Device device) {
+        this.device = device;
     }
 
     public void setRepairDate(String repairDate) {
         this.repairDate = repairDate;
-    }
 
+    }
 
     @Override
     public String toString() {
         return "Repair{" +
                 "id=" + id +
-                ", customers=" + customers +
+                ", customer=" + customer +
                 ", employees=" + employees +
                 ", services=" + services +
-                ", devices=" + devices +
+                ", device=" + device +
                 ", repairDate='" + repairDate + '\'' +
                 '}';
     }

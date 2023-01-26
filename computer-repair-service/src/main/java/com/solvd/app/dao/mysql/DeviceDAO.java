@@ -18,7 +18,7 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
     private final static String CREATE_DEVICE = "INSERT INTO Devices (DeviceType, Brand) VALUES (?, ?)";
     private final static String UPDATE_DEVICE = "UPDATE RepairService.Devices SET DeviceType = ?, Brand=? WHERE deviceID= ?";
     private final static String DELETE_DEVICE = "DELETE FROM RepairService.Devices WHERE deviceId= ?";
-    private final static String DEVICE_BY_REPAIR = "SELECT devices.* FROM devices INNER JOIN repairs ON devices.DeviceID = repairs.DeviceID WHERE repairs.RepairID = ?";
+    private final static String DEVICE_BY_REPAIR = "SELECT Devices.* FROM Devices INNER JOIN Repairs ON Devices.DeviceID = Repairs.DeviceID WHERE Repairs.RepairID = ?";
 
 
     public DeviceDAO() throws SQLException {
@@ -50,7 +50,6 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
             statement.setString(2, entity.getDeviceBrand());
             statement.executeUpdate();
             LOGGER.info("Device created.");
-            LOGGER.info(entity);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
@@ -129,4 +128,22 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
     }
 
 
+    public Device getDeviceByRepairId(int repairId) {
+        Device device = new Device();
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    DEVICE_BY_REPAIR);
+            statement.setInt(1, repairId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                device.setId(resultSet.getInt("DeviceID"));
+                device.setDeviceType(resultSet.getString("DeviceType"));
+                device.setBrand(resultSet.getString("Brand"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return device;
+    }
 }

@@ -11,20 +11,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class JsonTask {
-    private final static Logger LOGGER = LogManager.getLogger(JaxbTask.class);
+    private final static Logger LOGGER = LogManager.getLogger(JsonTask.class);
 
     public static void main(String[] args) throws IOException {
 
         //Random data to test
         Customer customer = new Customer(1, "Marksss", "T", "123", "234");
         Device device = new Device(1, "mobile", "nokia");
-        ArrayList<Customer> customerList = new ArrayList<>();
         ArrayList<Employee> employeesList = new ArrayList<>();
-        ArrayList<Device> devicesList = new ArrayList<>();
         ArrayList<Service> servicesList = new ArrayList<>();
-        customerList.add(customer);
-        devicesList.add(device);
-        Repair repair = new Repair(customerList, employeesList, servicesList, devicesList, "2021");
+        Repair repair = new Repair(1, customer, employeesList, servicesList, device, "2021");
 
         //Logic
         ObjectMapper om = new ObjectMapper();

@@ -37,6 +37,10 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(int id) {
+        this.id = id;
+    }
+
     public Employee(String firstName, String lastName, String address, String phone, String sector, String hireDate, int salary) {
         this.firstName = firstName;
         this.lastName = lastName;

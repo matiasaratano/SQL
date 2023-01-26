@@ -29,6 +29,10 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(int id) {
+        this.id = id;
+    }
+
     public Customer(String firstName, String lastName, String address, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -92,7 +96,9 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{firstName='" + firstName + '\'' +
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +

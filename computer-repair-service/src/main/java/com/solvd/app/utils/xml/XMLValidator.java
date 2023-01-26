@@ -32,7 +32,7 @@ public class XMLValidator {
 
             //parser.parse("./src/main/resources/xmlFiles/schema.xml", new MyHandler());
         } catch (SAXException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Exception: " + e.getMessage());
         }
     }
 

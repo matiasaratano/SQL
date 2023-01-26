@@ -19,7 +19,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     private final static String CREATE_EMPLOYEE = "INSERT INTO Employees (FirstName, LastName, Address, Phone, Sector, HireDate, Salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final static String UPDATE_EMPLOYEE = "UPDATE RepairService.Employees SET FirstName = ?, LastName=?, Address = ?, Phone=?, Sector=?, HireDate=?, Salary=? WHERE EmployeeID= ?";
     private final static String DELETE_EMPLOYEE = "DELETE FROM RepairService.Employees WHERE EmployeeId= ?";
-    private final static String EMPLOYEE_BY_REPAIR = "SELECT employees.* FROM employees INNER JOIN repairs ON employees.employeeId = repairs.employeeId WHERE repairs.RepairID = ?";
+    private final static String EMPLOYEE_BY_REPAIR = "SELECT Employees.* FROM Employees INNER JOIN Repairs ON Employees.employeeId = Repairs.employeeId WHERE Repairs.RepairID = ?";
 
 
     public EmployeeDAO() throws SQLException {
@@ -61,7 +61,6 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
             statement.setInt(7, entity.getEmployeeSalary());
             statement.executeUpdate();
             LOGGER.info("Employee created.");
-            LOGGER.info(entity);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }

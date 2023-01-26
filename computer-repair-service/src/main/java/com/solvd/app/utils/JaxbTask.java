@@ -20,17 +20,14 @@ public class JaxbTask {
         //Random data to test
         Customer customer = new Customer(1, "Marksss", "T", "123", "234");
         Device device = new Device(1, "mobile", "nokia");
-        ArrayList<Customer> customerList = new ArrayList<>();
         ArrayList<Employee> employeesList = new ArrayList<>();
-        ArrayList<Device> devicesList = new ArrayList<>();
         ArrayList<Service> servicesList = new ArrayList<>();
-        customerList.add(customer);
-        devicesList.add(device);
-        Repair repair = new Repair(customerList, employeesList, servicesList, devicesList, "2021");
+        Repair repair = new Repair(1, customer, employeesList, servicesList, device, "2021");
 
         //Single Customer
         JAXBContext c = JAXBContext.newInstance(Customer.class);
         Marshaller m = c.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         m.marshal(customer, new File("./src/main/resources/xml.files/customer.xml"));
         Unmarshaller um = c.createUnmarshaller();
         Customer cu = (Customer) um.unmarshal(new FileReader("./src/main/resources/xml.files/customer.xml"));

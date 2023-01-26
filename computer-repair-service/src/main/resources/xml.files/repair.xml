@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <repair>
-    <repairId>0</repairId>
-    <customers>
-        <customer>
-            <customerID>1</customerID>
-            <firstName>Marksss</firstName>
-            <lastName>T</lastName>
-            <address>123</address>
-            <phone>234</phone>
-        </customer>
-    </customers>
+    <repairId>1</repairId>
+    <customer>
+        <customerID>1</customerID>
+        <firstName>Marksss</firstName>
+        <lastName>T</lastName>
+        <address>123</address>
+        <phone>234</phone>
+    </customer>
     <employees/>
     <services/>
-    <devices>
-        <device>
-            <deviceID>1</deviceID>
-            <deviceType>mobile</deviceType>
-            <brand>nokia</brand>
-        </device>
-    </devices>
+    <device>
+        <deviceID>1</deviceID>
+        <deviceType>mobile</deviceType>
+        <brand>nokia</brand>
+    </device>
     <repairDate>2021</repairDate>
 </repair>

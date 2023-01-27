@@ -31,14 +31,12 @@ public class RepairService {
     }
 
     public Repair createRepair(Repair newRepair, Customer customer, Employee employee, Service service, Device device) throws SQLException {
-        Repair repair = new Repair();
-        repair.setCustomer(customerDAO.getEntityById(customer.getCustomerId()));
-        repair.setEmployee(employeeDAO.getEntityById(employee.getEmployeeId()));
-        repair.setService(serviceDAO.getEntityById(service.getServiceId()));
-        repair.setDevice(deviceDAO.getEntityById(device.getDeviceId()));
-        repair.setRepairDate(newRepair.getDate());
-        repairDAO.createEntity(repair);
-        return repair;
+        newRepair.setCustomer(customerDAO.getEntityById(customer.getCustomerId()));
+        newRepair.setEmployee(employeeDAO.getEntityById(employee.getEmployeeId()));
+        newRepair.setService(serviceDAO.getEntityById(service.getServiceId()));
+        newRepair.setDevice(deviceDAO.getEntityById(device.getDeviceId()));
+        repairDAO.createEntity(newRepair);
+        return newRepair;
     }
 
     public void updateRepair(Repair newRepair, Customer customer, Employee employee, Service service, Device device) throws SQLException {

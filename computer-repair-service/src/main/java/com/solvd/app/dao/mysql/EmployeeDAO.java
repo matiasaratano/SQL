@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     @Override
     public Employee createEntity(Employee entity) {
         try {
-            PreparedStatement statement = connection.prepareStatement(CREATE_EMPLOYEE);
+            PreparedStatement statement = connection.prepareStatement(CREATE_EMPLOYEE, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, entity.getEmployeeFirstName());
             statement.setString(2, entity.getEmployeeLastName());
@@ -61,6 +62,11 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
             statement.setInt(7, entity.getEmployeeSalary());
             statement.executeUpdate();
             LOGGER.info("Employee created.");
+            ResultSet rs = statement.getGeneratedKeys();
+            while (rs.next()) {
+                entity.setId(rs.getInt(1));
+            }
+            LOGGER.info(entity);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }

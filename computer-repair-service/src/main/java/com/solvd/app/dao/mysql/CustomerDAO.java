@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     @Override
     public Customer createEntity(Customer entity) {
         try {
-            PreparedStatement statement = connection.prepareStatement(CREATE_CUSTOMER);
+            PreparedStatement statement = connection.prepareStatement(CREATE_CUSTOMER, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, entity.getCustomerFirstName());
             statement.setString(2, entity.getCustomerLastName());
@@ -55,7 +56,11 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
             statement.setString(4, entity.getCustomerPhone());
             statement.executeUpdate();
             LOGGER.info("Customer created.");
-            //LOGGER.info(entity);
+            ResultSet rs = statement.getGeneratedKeys();
+            while (rs.next()) {
+                entity.setId(rs.getInt(1));
+            }
+            LOGGER.info(entity);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }

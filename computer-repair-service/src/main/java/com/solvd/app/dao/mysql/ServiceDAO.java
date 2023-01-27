@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +45,17 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
     @Override
     public Service createEntity(Service entity) {
         try {
-            PreparedStatement statement = connection.prepareStatement(CREATE_SERVICE);
+            PreparedStatement statement = connection.prepareStatement(CREATE_SERVICE, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, entity.getType());
             statement.setInt(2, entity.getPrice());
             statement.executeUpdate();
             LOGGER.info("Service created.");
+            ResultSet rs = statement.getGeneratedKeys();
+            while (rs.next()) {
+                entity.setId(rs.getInt(1));
+            }
+            LOGGER.info(entity);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }

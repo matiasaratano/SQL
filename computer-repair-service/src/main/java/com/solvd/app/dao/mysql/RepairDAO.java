@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     @Override
     public Repair createEntity(Repair entity) {
         try {
-            PreparedStatement statement = connection.prepareStatement(CREATE_REPAIR);
+            PreparedStatement statement = connection.prepareStatement(CREATE_REPAIR, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, entity.getRepairCustomer().getCustomerId());
             statement.setInt(2, entity.getRepairEmployees().get(0).getEmployeeId());
             statement.setInt(3, entity.getRepairServices().get(0).getServiceId());
@@ -53,6 +54,11 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
             statement.setString(5, entity.getDate());
             statement.executeUpdate();
             LOGGER.info("Repair created.");
+            ResultSet rs = statement.getGeneratedKeys();
+            while (rs.next()) {
+                entity.setId(rs.getInt(1));
+            }
+            LOGGER.info(entity);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }

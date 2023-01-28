@@ -5,9 +5,9 @@ import java.sql.SQLException;
 public interface IBaseDAO<T> {
     T getEntityById(int id) throws SQLException;
 
-    T createEntity(T entity);
+    T createEntity(T entity) throws SQLException;
 
     void updateEntity(T entity);
-    
+
     void removeById(int id);
 }

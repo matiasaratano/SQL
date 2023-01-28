@@ -5,10 +5,7 @@ import com.solvd.app.models.Device;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,13 +25,14 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
     @Override
     public Device getEntityById(int id) throws SQLException {
         Device device = new Device();
-        try (PreparedStatement ps = connection.prepareStatement(GET_DEVICE)) {
+        try (Connection connection = MySQLDAO.getConnection(); PreparedStatement ps = connection.prepareStatement(GET_DEVICE)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 device.setId(rs.getInt("deviceID"));
                 device.setDeviceType(rs.getString("DeviceType"));
                 device.setBrand(rs.getString("Brand"));
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -44,7 +42,7 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
 
     @Override
     public Device createEntity(Device entity) {
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(CREATE_DEVICE, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, entity.getType());
@@ -65,7 +63,7 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
     @Override
     public void updateEntity(Device entity) {
         LOGGER.info("Updating device with id " + entity.getDeviceId() + ".");
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(UPDATE_DEVICE);
 
             statement.setString(1, entity.getType());
@@ -81,7 +79,7 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
     @Override
     public void removeById(int id) {
         LOGGER.info("Deleting device with id " + id + ".");
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(DELETE_DEVICE);
             statement.setInt(1, id);
             statement.executeUpdate();
@@ -95,7 +93,7 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
     public List<Device> findAll() {
         LOGGER.info("Finding all Devices.");
         List<Device> devices = new ArrayList<>();
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_DEVICES);
 
             ResultSet resultSet = statement.executeQuery();
@@ -115,7 +113,7 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
     @Override
     public ArrayList<Device> getDevicesByRepairId(int repairId) {
         ArrayList<Device> devices = new ArrayList<>();
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(
                     DEVICE_BY_REPAIR);
             statement.setInt(1, repairId);
@@ -136,7 +134,7 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
 
     public Device getDeviceByRepairId(int repairId) {
         Device device = new Device();
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(
                     DEVICE_BY_REPAIR);
             statement.setInt(1, repairId);

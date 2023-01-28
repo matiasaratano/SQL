@@ -5,10 +5,7 @@ import com.solvd.app.models.Repair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +17,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     //private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (`RepairDate`)  VALUES (?)";
 
     private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (customerId, employeeId, serviceId, deviceId, RepairDate)  VALUES (?,?,?,?,?)";
-    private final static String UPDATE_REPAIR = "UPDATE RepairService.Repairs SET  RepairDate=? WHERE repairID= ?";
+    private final static String UPDATE_REPAIR = "UPDATE RepairService.Repairs SET customerId=?, employeeId=?, serviceId=?, deviceId=?, RepairDate=? WHERE repairID= ?";
     private final static String DELETE_REPAIR = "DELETE FROM RepairService.Repairs WHERE repairID= ?";
 
 
@@ -30,7 +27,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     @Override
     public Repair getEntityById(int id) throws SQLException {
         Repair repair = new Repair();
-        try (PreparedStatement ps = connection.prepareStatement(GET_REPAIR)) {
+        try (Connection connection = MySQLDAO.getConnection(); PreparedStatement ps = connection.prepareStatement(GET_REPAIR)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -45,7 +42,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
 
     @Override
     public Repair createEntity(Repair entity) {
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(CREATE_REPAIR, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, entity.getRepairCustomer().getCustomerId());
             statement.setInt(2, entity.getRepairEmployees().get(0).getEmployeeId());
@@ -69,25 +66,32 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     @Override
     public void updateEntity(Repair entity) {
         LOGGER.info("Updating repair with id " + entity.getRepairId() + ".");
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(UPDATE_REPAIR);
 
-            statement.setString(1, entity.getDate());
-            statement.setInt(2, entity.getRepairId());
+            statement.setInt(1, entity.getRepairCustomer().getCustomerId());
+            statement.setInt(2, entity.getRepairEmployees().get(0).getEmployeeId());
+            statement.setInt(3, entity.getRepairServices().get(0).getServiceId());
+            statement.setInt(4, entity.getRepairDevice().getDeviceId());
+            statement.setString(5, entity.getDate());
+            statement.setInt(6, entity.getRepairId());
             statement.executeUpdate();
+            LOGGER.info("Repair updated.");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
+        
     }
 
     @Override
     public void removeById(int id) {
         LOGGER.info("Deleting repair with id " + id + ".");
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(DELETE_REPAIR);
 
             statement.setInt(1, id);
             statement.executeUpdate();
+            LOGGER.info("Repair deleted.");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
@@ -97,7 +101,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     public List<Repair> findAll() {
         LOGGER.info("Finding all Repairs.");
         List<Repair> repairs = new ArrayList<>();
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_REPAIRS);
 
             ResultSet resultSet = statement.executeQuery();

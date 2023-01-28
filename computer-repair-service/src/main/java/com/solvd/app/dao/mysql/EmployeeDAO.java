@@ -5,10 +5,7 @@ import com.solvd.app.models.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +19,13 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     private final static String DELETE_EMPLOYEE = "DELETE FROM RepairService.Employees WHERE EmployeeId= ?";
     private final static String EMPLOYEE_BY_REPAIR = "SELECT Employees.* FROM Employees INNER JOIN Repairs ON Employees.employeeId = Repairs.employeeId WHERE Repairs.RepairID = ?";
 
-
     public EmployeeDAO() throws SQLException {
     }
 
     @Override
     public Employee getEntityById(int id) throws SQLException {
         Employee employee = new Employee();
-        try (PreparedStatement ps = connection.prepareStatement(GET_EMPLOYEE)) {
+        try (Connection connection = MySQLDAO.getConnection(); PreparedStatement ps = connection.prepareStatement(GET_EMPLOYEE)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -41,6 +37,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
                 employee.setSector(rs.getString("Sector"));
                 employee.setHireDate(rs.getString("HireDate"));
                 employee.setSalary(rs.getInt("Salary"));
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -50,7 +47,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
 
     @Override
     public Employee createEntity(Employee entity) {
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(CREATE_EMPLOYEE, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, entity.getEmployeeFirstName());
@@ -76,7 +73,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     @Override
     public void updateEntity(Employee entity) {
         LOGGER.info("Updating employee with id " + entity.getEmployeeId() + ".");
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(UPDATE_EMPLOYEE);
 
             statement.setString(1, entity.getEmployeeFirstName());
@@ -96,7 +93,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     @Override
     public void removeById(int id) {
         LOGGER.info("Deleting employee with id " + id + ".");
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(DELETE_EMPLOYEE);
 
             statement.setInt(1, id);
@@ -111,7 +108,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     public List<Employee> findAll() {
         LOGGER.info("Finding all Employees.");
         List<Employee> employees = new ArrayList<>();
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_EMPLOYEES);
 
             ResultSet resultSet = statement.executeQuery();
@@ -135,7 +132,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     @Override
     public ArrayList<Employee> getEmployeesByRepairId(int repairId) {
         ArrayList<Employee> employees = new ArrayList<>();
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(
                     EMPLOYEE_BY_REPAIR);
             statement.setInt(1, repairId);

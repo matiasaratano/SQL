@@ -5,10 +5,7 @@ import com.solvd.app.models.Customer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +24,9 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     }
 
     @Override
-    public Customer getEntityById(int id) {
+    public Customer getEntityById(int id) throws SQLException {
         Customer customer = new Customer();
-        try (PreparedStatement ps = connection.prepareStatement(GET_CUSTOMER)) {
+        try (Connection connection = MySQLDAO.getConnection(); PreparedStatement ps = connection.prepareStatement(GET_CUSTOMER)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -46,10 +43,9 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     }
 
     @Override
-    public Customer createEntity(Customer entity) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(CREATE_CUSTOMER, Statement.RETURN_GENERATED_KEYS);
-
+    public Customer createEntity(Customer entity) throws SQLException {
+        try (Connection connection = MySQLDAO.getConnection(); PreparedStatement statement = connection.prepareStatement(CREATE_CUSTOMER, Statement.RETURN_GENERATED_KEYS);) {
+            
             statement.setString(1, entity.getCustomerFirstName());
             statement.setString(2, entity.getCustomerLastName());
             statement.setString(3, entity.getCustomerAddress());
@@ -70,7 +66,7 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     @Override
     public void updateEntity(Customer entity) {
         LOGGER.info("Updating customer with id " + entity.getCustomerId() + ".");
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(UPDATE_CUSTOMER);
 
             statement.setString(1, entity.getCustomerFirstName());
@@ -87,7 +83,7 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     @Override
     public void removeById(int id) {
         LOGGER.info("Deleting customer with id " + id + ".");
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(DELETE_CUSTOMER);
 
             statement.setInt(1, id);
@@ -101,9 +97,8 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     public List<Customer> findAll() {
         LOGGER.info("Finding all Customers.");
         List<Customer> customers = new ArrayList<>();
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_CUSTOMERS);
-
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
                 customers.add(new Customer(
@@ -123,7 +118,7 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     @Override
     public ArrayList<Customer> getCustomersByRepairId(int repairId) {
         ArrayList<Customer> customers = new ArrayList<>();
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(
                     CUSTOMER_BY_REPAIR);
             statement.setInt(1, repairId);
@@ -145,7 +140,7 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
 
     public Customer getCustomerByRepairId(int repairId) {
         Customer customer = new Customer();
-        try {
+        try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(
                     CUSTOMER_BY_REPAIR);
             statement.setInt(1, repairId);

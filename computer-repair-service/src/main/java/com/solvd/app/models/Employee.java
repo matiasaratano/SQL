@@ -10,16 +10,16 @@ public class Employee {
     @JsonProperty("employeeID")
     @XmlElement(name = "employeeID")
     private int id;
-    @JsonProperty("firstName")
+    @JsonProperty("eFirstName")
     @XmlElement
     private String firstName;
-    @JsonProperty("lastName")
+    @JsonProperty("eLastName")
     @XmlElement
     private String lastName;
-    @JsonProperty("address")
+    @JsonProperty("eAddress")
     @XmlElement
     private String address;
-    @JsonProperty("phone")
+    @JsonProperty("ePhone")
     @XmlElement
     private String phone;
     @JsonProperty("sector")

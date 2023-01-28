@@ -23,14 +23,6 @@ public class XMLValidator {
             String xmlPath = "./src/main/resources/xml.files/schema.xml";
             boolean valid = validateXMLSchema(xsdPath, xmlPath);
             LOGGER.info(String.format("XML file is %s", (valid ? "valid." : "invalid.")));
-
-            // Create a SAXParserFactory
-            //SAXParserFactory factory = SAXParserFactory.newInstance();
-
-            // Create a SAXParser
-            //SAXParser parser = factory.newSAXParser();
-
-            //parser.parse("./src/main/resources/xmlFiles/schema.xml", new MyHandler());
         } catch (SAXException e) {
             LOGGER.error("Exception: " + e.getMessage());
         }

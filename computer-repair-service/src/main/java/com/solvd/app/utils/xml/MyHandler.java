@@ -18,7 +18,6 @@ public class MyHandler extends DefaultHandler {
     private Device device = null;
     private List<Service> servicesList = null;
     private Service service = null;
-    private String date = null;
     private StringBuilder data = null;
 
     public List<Repair> getRepairList() {
@@ -33,224 +32,195 @@ public class MyHandler extends DefaultHandler {
         return servicesList;
     }
 
-    boolean rId = false;
-    boolean rCustomer = false;
-    boolean rDevice = false;
-    boolean rEmployees = false;
-    boolean rEmployee = false;
-    boolean rServices = false;
-    boolean rService = false;
-    boolean rRepairDate = false;
-
-    boolean cId = false;
-    boolean cFirstName = false;
-    boolean cLastName = false;
-    boolean cAddress = false;
-    boolean cPhone = false;
-
-    boolean eId = false;
-    boolean eFirstName = false;
-    boolean eLastName = false;
-    boolean eAddress = false;
-    boolean ePhone = false;
-    boolean eSector = false;
-    boolean eSalary = false;
-    boolean eHireDate = false;
-
-    boolean sId = false;
-    boolean sServiceType = false;
-    boolean sServicePrice = false;
-
-    boolean dId = false;
-    boolean dDeviceType = false;
-    boolean dDevicePrice = false;
-
+    private String currTag = "";
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        data = new StringBuilder("");
         switch (qName.toLowerCase()) {
             case "repair":
                 repair = new Repair();
                 // initialize list
+                currTag = "repair";
                 if (repairList == null)
                     repairList = new ArrayList<>();
                 break;
-            case "repairId":
-                rId = true;
+            case "repairid":
+                currTag = "repairid";
                 break;
             case "customer":
-                rCustomer = true;
+                currTag = "customer";
                 customer = new Customer();
                 break;
-            case "customerID":
-                cId = true;
+            case "customerid":
+                currTag = "customerid";
                 break;
-            case "firstName":
-                cFirstName = true;
+            case "firstname":
+                currTag = "firstname";
                 break;
-            case "lastName":
-                cLastName = true;
+            case "lastname":
+                currTag = "lastname";
                 break;
             case "address":
-                cAddress = true;
+                currTag = "address";
                 break;
             case "phone":
-                cPhone = true;
+                currTag = "phone";
                 break;
             case "employees":
+                currTag = "employees";
                 if (employeeList == null)
                     employeeList = new ArrayList<>();
-                rEmployees = true;
                 break;
             case "employee":
+                currTag = "employee";
                 employee = new Employee();
-                rEmployee = true;
                 break;
-            case "employeeId":
-                eId = true;
+            case "employeeid":
+                currTag = "employeeid";
                 break;
-            case "eFirstName":
-                eFirstName = true;
+            case "efirstname":
+                currTag = "efirstname";
                 break;
-            case "eLastName":
-                eLastName = true;
+            case "elastname":
+                currTag = "elastname";
                 break;
-            case "eAddress":
-                eAddress = true;
+            case "eaddress":
+                currTag = "eaddress";
                 break;
-            case "ePhone":
-                ePhone = true;
+            case "ephone":
+                currTag = "ephone";
                 break;
             case "sector":
-                eSector = true;
+                currTag = "sector";
                 break;
             case "salary":
-                eSalary = true;
+                currTag = "salary";
                 break;
-            case "hireDate":
-                eHireDate = true;
+            case "hirehate":
+                currTag = "hirehate";
                 break;
             case "services":
+                currTag = "services";
                 if (servicesList == null)
                     servicesList = new ArrayList<>();
-                rServices = true;
                 break;
             case "service":
+                currTag = "service";
                 service = new Service();
-                rService = true;
                 break;
-            case "serviceId":
-                sId = true;
+            case "serviceid":
+                currTag = "serviceid";
                 break;
-            case "serviceType":
-                sServiceType = true;
+            case "servicetype":
+                currTag = "servicetype";
                 break;
-            case "servicePrice":
-                sServicePrice = true;
+            case "serviceprice":
+                currTag = "serviceprice";
                 break;
             case "device":
+                currTag = "device";
                 device = new Device();
-                rDevice = true;
                 break;
-            case "deviceId":
-                dId = true;
+            case "deviceid":
+                currTag = "deviceid";
                 break;
-            case "deviceType":
-                dDeviceType = true;
+            case "devicetype":
+                currTag = "devicetype";
                 break;
-            case "devicePrice":
-                dDevicePrice = true;
+            case "brand":
+                currTag = "brand";
                 break;
-            case "repairDate":
-                rRepairDate = true;
+            case "repairdate":
+                currTag = "repairdate";
                 break;
         }
-        // create the data container
-        data = new StringBuilder();
+
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (rId) {
-            repair.setId(Integer.parseInt(data.toString()));
-            rId = false;
-        } else if (rCustomer) {
-            rCustomer = false;
-        } else if (cId) {
-            customer.setId(Integer.parseInt(data.toString()));
-            rId = false;
-        } else if (cFirstName) {
-            customer.setFirstName(data.toString());
-            cFirstName = false;
-        } else if (cLastName) {
-            customer.setLastName(data.toString());
-            cLastName = false;
-        } else if (cAddress) {
-            customer.setAddress(data.toString());
-            cAddress = false;
-        } else if (cPhone) {
-            customer.setPhone(data.toString());
-            cPhone = false;
-        } else if (rEmployees) {
-
-            rEmployees = false;
-        } else if (rEmployee) {
-            rEmployee = false;
-
-        } else if (eId) {
-            employee.setId(Integer.parseInt(data.toString()));
-            eId = false;
-        } else if (eFirstName) {
-            employee.setFirstName(data.toString());
-            eFirstName = false;
-        } else if (eLastName) {
-            employee.setLastName(data.toString());
-            eLastName = false;
-        } else if (eAddress) {
-            employee.setAddress(data.toString());
-            eAddress = false;
-        } else if (ePhone) {
-            employee.setPhone(data.toString());
-            ePhone = false;
-        } else if (eSector) {
-            employee.setSector(data.toString());
-            eSector = false;
-        } else if (eSalary) {
-            employee.setSalary(Integer.parseInt(data.toString()));
-            eSalary = false;
-        } else if (eHireDate) {
-            employee.setHireDate(data.toString());
-            eHireDate = false;
-        } else if (rServices) {
-
-            rServices = false;
-        } else if (rService) {
-
-            rService = false;
-        } else if (sId) {
-            service.setId(Integer.parseInt(data.toString()));
-            sId = false;
-        } else if (sServiceType) {
-            service.setServiceType(data.toString());
-            sServiceType = false;
-        } else if (sServicePrice) {
-            service.setServicePrice(Integer.parseInt(data.toString()));
-            sServicePrice = false;
-        } else if (rDevice) {
-
-            rDevice = false;
-        } else if (dId) {
-            device.setId(Integer.parseInt(data.toString()));
-            dId = false;
-        } else if (dDeviceType) {
-            service.setServiceType(data.toString());
-            dDeviceType = false;
-        } else if (dDevicePrice) {
-            service.setServicePrice(Integer.parseInt(data.toString()));
-            dDevicePrice = false;
-        } else if (rRepairDate) {
-            repair.setRepairDate(data.toString());
-            rRepairDate = false;
+        switch (currTag) {
+            case "repair":
+                break;
+            case "repairid":
+                repair.setId(Integer.parseInt(data.toString()));
+                break;
+            case "customer":
+                break;
+            case "customerid":
+                customer.setId(Integer.parseInt(data.toString()));
+                break;
+            case "firstname":
+                customer.setFirstName(data.toString());
+                break;
+            case "lastname":
+                customer.setLastName(data.toString());
+                break;
+            case "address":
+                customer.setAddress(data.toString());
+                break;
+            case "phone":
+                customer.setPhone(data.toString());
+                repair.setCustomer(customer);
+                break;
+            case "employees":
+                ;
+                break;
+            case "employee":
+                break;
+            case "employeeid":
+                employee.setId(Integer.parseInt(data.toString()));
+                break;
+            case "efirstname":
+                employee.setFirstName(data.toString());
+                break;
+            case "elastname":
+                employee.setLastName(data.toString());
+                break;
+            case "eaddress":
+                employee.setAddress(data.toString());
+                break;
+            case "ephone":
+                employee.setPhone(data.toString());
+                break;
+            case "sector":
+                employee.setSector(data.toString());
+                break;
+            case "salary":
+                employee.setSalary(Integer.parseInt(data.toString()));
+                break;
+            case "hirehate":
+                employee.setHireDate(data.toString());
+                break;
+            case "services":
+                break;
+            case "service":
+                break;
+            case "serviceid":
+                service.setId(Integer.parseInt(data.toString()));
+                break;
+            case "servicetype":
+                service.setServiceType(data.toString());
+                break;
+            case "serviceprice":
+                service.setServicePrice(Integer.parseInt(data.toString()));
+                break;
+            case "device":
+                break;
+            case "deviceid":
+                device.setId(Integer.parseInt(data.toString()));
+                break;
+            case "devicetype":
+                device.setDeviceType(data.toString());
+                break;
+            case "brand":
+                device.setBrand(data.toString());
+                repair.setDevice(device);
+                break;
+            case "repairdate":
+                repair.setRepairDate(data.toString());
+                break;
         }
 
 
@@ -261,11 +231,16 @@ public class MyHandler extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("service")) {
             servicesList.add(service);
         }
+
     }
 
     @Override
     public void characters(char ch[], int start, int length) throws SAXException {
-        data.append(new String(ch, start, length));
+        if (data == null) {
+            data = new StringBuilder();
+        } else {
+            data.append(ch, start, length);
+        }
     }
 }
 

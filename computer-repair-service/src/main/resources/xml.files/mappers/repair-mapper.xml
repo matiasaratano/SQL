@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="com.solvd.app.dao.mysql.RepairDAO">
+    <select id="getEntityById" resultMap="RepairResultMap" resultType="com.solvd.app.models.Repair">
+        SELECT * FROM RepairService.Repairs WHERE RepairID = #{id}
+    </select>
+    <insert id="createEntity" parameterType="com.example.Repair">
+        INSERT INTO repairs (device, description, cost)
+        VALUES (#{device}, #{description}, #{cost})
+    </insert>
+    <update id="updateEntity" parameterType="com.example.Repair">
+        UPDATE repairs
+        SET device = #{device}, description = #{description}, cost = #{cost}
+        WHERE id = #{id}
+    </update>
+    <delete id="removeById" parameterType="int">
+        DELETE FROM repairs WHERE id = #{id}
+    </delete>
+    <resultMap id="repairResultMap" type="com.solvd.app.dao.binary.Repair" autoMapping="false">
+        <id column="repairId" property="id"/>
+    </resultMap>
+</mapper>

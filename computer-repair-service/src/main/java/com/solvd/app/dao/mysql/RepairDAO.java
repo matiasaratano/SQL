@@ -14,8 +14,6 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     private static final Logger LOGGER = LogManager.getLogger(RepairDAO.class);
     private final static String GET_REPAIR = "Select * from RepairService.Repairs where RepairID=?";
     private final static String GET_ALL_REPAIRS = "Select * FROM RepairService.Repairs";
-    //private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (`RepairDate`)  VALUES (?)";
-
     private final static String CREATE_REPAIR = "INSERT INTO `RepairService`.`Repairs` (customerId, employeeId, serviceId, deviceId, RepairDate)  VALUES (?,?,?,?,?)";
     private final static String UPDATE_REPAIR = "UPDATE RepairService.Repairs SET customerId=?, employeeId=?, serviceId=?, deviceId=?, RepairDate=? WHERE repairID= ?";
     private final static String DELETE_REPAIR = "DELETE FROM RepairService.Repairs WHERE repairID= ?";
@@ -80,7 +78,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
-        
+
     }
 
     @Override

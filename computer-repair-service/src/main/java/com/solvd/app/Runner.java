@@ -5,10 +5,16 @@ import com.solvd.app.dao.mysql.DeviceDAO;
 import com.solvd.app.dao.mysql.EmployeeDAO;
 import com.solvd.app.dao.mysql.ServiceDAO;
 import com.solvd.app.models.*;
-import com.solvd.app.service.RepairService;
+import com.solvd.app.service.jdbcimpl.RepairService;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.SQLException;
 
 public class Runner {
@@ -25,7 +31,24 @@ public class Runner {
         //Get Repair By Id
         LOGGER.info(new RepairService().getRepairById(rs.getRepairId()));
         //Update Repair
-        LOGGER.info(new RepairService().updateRepair(17, c, e, s, d, "2020"));
+        new RepairService().updateRepair(17, c, e, s, d, "2020");
 
+    }
+
+    public SqlSessionFactory myBatisTask() {
+        SqlSessionFactory sqlSessionFactory;
+        try {
+            Reader reader = Resources.getResourceAsReader("config.xml");
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        } catch (IOException e) {
+            LOGGER.error("Error");
+            throw new RuntimeException(e);
+
+        }
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        CustomerDAO customerDAO = sqlSession.getMapper(CustomerDAO.class);
+        return sqlSessionFactory;
+        //sqlSession.commit();
+        //sqlSession.rollback();
     }
 }

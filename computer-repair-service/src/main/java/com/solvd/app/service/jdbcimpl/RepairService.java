@@ -1,11 +1,12 @@
-package com.solvd.app.service;
+package com.solvd.app.service.jdbcimpl;
 
 import com.solvd.app.dao.mysql.*;
 import com.solvd.app.models.*;
+import com.solvd.app.service.IRepairService;
 
 import java.sql.SQLException;
 
-public class RepairService {
+public class RepairService implements IRepairService {
 
     private CustomerDAO customerDAO;
     private EmployeeDAO employeeDAO;
@@ -21,6 +22,7 @@ public class RepairService {
     }
 
 
+    @Override
     public Repair getRepairById(int repairId) throws SQLException {
         Repair repair = repairDAO.getEntityById(repairId);
         repair.setCustomer(customerDAO.getCustomerByRepairId(repairId));
@@ -30,6 +32,7 @@ public class RepairService {
         return repair;
     }
 
+    @Override
     public Repair createRepair(Repair newRepair, Customer customer, Employee employee, Service service, Device device) throws SQLException {
         newRepair.setCustomer(customerDAO.getEntityById(customer.getCustomerId()));
         newRepair.setEmployee(employeeDAO.getEntityById(employee.getEmployeeId()));
@@ -39,6 +42,7 @@ public class RepairService {
         return newRepair;
     }
 
+    @Override
     public Repair updateRepair(int id, Customer customer, Employee employee, Service service, Device device, String repairDate) throws SQLException {
         Repair repair = repairDAO.getEntityById(id);
         repair.setId(id);
@@ -50,5 +54,4 @@ public class RepairService {
         repairDAO.updateEntity(repair);
         return repair;
     }
-
 }

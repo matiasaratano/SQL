@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.app.dao.mysql.RepairDAO">
-    <select id="getEntityById" resultMap="RepairResultMap" resultType="com.solvd.app.models.Repair">
+    <select id="getEntityById" resultMap="repairResultMap" resultType="com.solvd.app.models.Repair">
         SELECT * FROM RepairService.Repairs WHERE RepairID = #{id}
     </select>
-    <insert id="createEntity" parameterType="com.example.Repair">
-        INSERT INTO repairs (device, description, cost)
-        VALUES (#{device}, #{description}, #{cost})
+    <insert id="createEntity" useGeneratedKeys="true" keyProperty="id" parameterType="com.solvd.app.models.Repair">
+        INSERT INTO RepairService.Repairs (customerId, employeeId, serviceId, deviceId, RepairDate)
+        VALUES (#{customerId}, #{employeeId}, #{serviceId}, #{deviceId}, #{RepairDate})
     </insert>
     <update id="updateEntity" parameterType="com.example.Repair">
         UPDATE repairs
@@ -16,7 +17,11 @@
     <delete id="removeById" parameterType="int">
         DELETE FROM repairs WHERE id = #{id}
     </delete>
-    <resultMap id="repairResultMap" type="com.solvd.app.dao.binary.Repair" autoMapping="false">
-        <id column="repairId" property="id"/>
+    <resultMap id="repairResultMap" type="com.solvd.app.models.Repair" autoMapping="false">
+        <result column="repairId" property="id"/>
+        <result column="customerId" property="customerId"/>
+        <collection property="employees" resultMap="com.solvd.app.dao.mysql.EmployeeDAO.employeeResultMap"/>
+        <collection property="services" resultMap="com.solvd.app.dao.mysql.EmployeeDAO.serviceResultMap"/>
     </resultMap>
 </mapper>
+

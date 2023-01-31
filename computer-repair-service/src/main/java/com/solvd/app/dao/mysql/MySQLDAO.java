@@ -26,7 +26,7 @@ public abstract class MySQLDAO {
         }
         dataSource = new BasicDataSource();
         LOGGER.info("Creating connection pool to MySQL database");
-        dataSource.setDriverClassName(properties.getProperty("driver"));
+        dataSource.setDriverClassName(properties.getProperty("db.driver"));
 
         //Local
         //dataSource.setUrl(properties.getProperty("url"));
@@ -34,9 +34,9 @@ public abstract class MySQLDAO {
         //dataSource.setPassword(properties.getProperty("password"));
 
         //Remote
-        dataSource.setUrl(properties.getProperty("url2"));
-        dataSource.setUsername(properties.getProperty("username2"));
-        dataSource.setPassword(properties.getProperty("password2"));
+        dataSource.setUrl(properties.getProperty("db.url2"));
+        dataSource.setUsername(properties.getProperty("db.username2"));
+        dataSource.setPassword(properties.getProperty("db.password2"));
 
         dataSource.setInitialSize(5);
         dataSource.setMaxTotal(10);

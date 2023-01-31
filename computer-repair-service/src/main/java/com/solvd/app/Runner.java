@@ -38,7 +38,7 @@ public class Runner {
     public SqlSessionFactory myBatisTask() {
         SqlSessionFactory sqlSessionFactory;
         try {
-            Reader reader = Resources.getResourceAsReader("config.xml");
+            Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         } catch (IOException e) {
             LOGGER.error("Error");

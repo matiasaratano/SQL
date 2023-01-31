@@ -18,6 +18,9 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mapper/MyMapper.xml"/>
+        <mapper resource="xml.files/mappers/repair-mapper.xml"/>
+        <mapper resource="xml.files/mappers/customer-mapper.xml"/>
     </mappers>
 </configuration>
+
+

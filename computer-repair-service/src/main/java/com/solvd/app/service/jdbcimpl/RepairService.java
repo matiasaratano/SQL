@@ -1,7 +1,7 @@
 package com.solvd.app.service.jdbcimpl;
 
 import com.solvd.app.dao.mysql.*;
-import com.solvd.app.models.*;
+import com.solvd.app.models.Repair;
 import com.solvd.app.service.IRepairService;
 
 import java.sql.SQLException;
@@ -33,25 +33,39 @@ public class RepairService implements IRepairService {
     }
 
     @Override
-    public Repair createRepair(Repair newRepair, Customer customer, Employee employee, Service service, Device device) throws SQLException {
-        newRepair.setCustomer(customerDAO.getEntityById(customer.getCustomerId()));
-        newRepair.setEmployee(employeeDAO.getEntityById(employee.getEmployeeId()));
-        newRepair.setService(serviceDAO.getEntityById(service.getServiceId()));
-        newRepair.setDevice(deviceDAO.getEntityById(device.getDeviceId()));
+    public Repair createRepair(Repair newRepair) throws SQLException {
+        if (newRepair.getRepairCustomer() != null && newRepair.getRepairCustomer().getCustomerId() == 0) {
+            customerDAO.createEntity(newRepair.getRepairCustomer());
+        }
+        if (newRepair.getRepairEmployees() != null && newRepair.getRepairEmployees().get(0).getEmployeeId() == 0) {
+            employeeDAO.createEntity(newRepair.getRepairEmployees().get(0));
+        }
+        if (newRepair.getRepairServices() != null && newRepair.getRepairServices().get(0).getServiceId() == 0) {
+            serviceDAO.createEntity(newRepair.getRepairServices().get(0));
+        }
+        if (newRepair.getRepairDevice() != null && newRepair.getRepairDevice().getDeviceId() == 0) {
+            deviceDAO.createEntity(newRepair.getRepairDevice());
+        }
+
         repairDAO.createEntity(newRepair);
         return newRepair;
     }
 
     @Override
-    public Repair updateRepair(int id, Customer customer, Employee employee, Service service, Device device, String repairDate) throws SQLException {
-        Repair repair = repairDAO.getEntityById(id);
-        repair.setId(id);
-        repair.setCustomer(customerDAO.getEntityById(customer.getCustomerId()));
-        repair.setEmployee(employeeDAO.getEntityById(employee.getEmployeeId()));
-        repair.setService(serviceDAO.getEntityById(service.getServiceId()));
-        repair.setDevice(deviceDAO.getEntityById(device.getDeviceId()));
-        repair.setRepairDate(repairDate);
-        repairDAO.updateEntity(repair);
-        return repair;
+    public Repair updateRepair(Repair newRepair) throws SQLException {
+        if (newRepair.getRepairCustomer() != null && newRepair.getRepairCustomer().getCustomerId() == 0) {
+            customerDAO.createEntity(newRepair.getRepairCustomer());
+        }
+        if (newRepair.getRepairEmployees() != null && newRepair.getRepairEmployees().get(0).getEmployeeId() == 0) {
+            employeeDAO.createEntity(newRepair.getRepairEmployees().get(0));
+        }
+        if (newRepair.getRepairServices() != null && newRepair.getRepairServices().get(0).getServiceId() == 0) {
+            serviceDAO.createEntity(newRepair.getRepairServices().get(0));
+        }
+        if (newRepair.getRepairDevice() != null && newRepair.getRepairDevice().getDeviceId() == 0) {
+            deviceDAO.createEntity(newRepair.getRepairDevice());
+        }
+        repairDAO.updateEntity(newRepair);
+        return newRepair;
     }
 }

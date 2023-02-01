@@ -1,10 +1,11 @@
 package com.solvd.app;
 
 import com.solvd.app.dao.mysql.CustomerDAO;
-import com.solvd.app.dao.mysql.DeviceDAO;
 import com.solvd.app.dao.mysql.EmployeeDAO;
 import com.solvd.app.dao.mysql.ServiceDAO;
-import com.solvd.app.models.*;
+import com.solvd.app.models.Customer;
+import com.solvd.app.models.Device;
+import com.solvd.app.models.Repair;
 import com.solvd.app.service.jdbcimpl.RepairService;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -21,17 +22,22 @@ public class Runner {
     private final static Logger LOGGER = LogManager.getLogger(Runner.class);
 
     public static void main(String[] args) throws SQLException {
+
         Repair r = new Repair("2021");
-        Customer c = new CustomerDAO().getEntityById(3);
-        Employee e = new EmployeeDAO().getEntityById(2);
-        Service s = new ServiceDAO().getEntityById(2);
-        Device d = new DeviceDAO().getEntityById(2);
+        r.setCustomer(new CustomerDAO().getEntityById(3));
+        r.setEmployee(new EmployeeDAO().getEntityById(2));
+        //new device
+        r.setDevice(new Device("test", "test"));
+        r.setService(new ServiceDAO().getEntityById(2));
+
         //Create new Repair
-        Repair rs = new RepairService().createRepair(r, c, e, s, d);
+        new RepairService().createRepair(r);
         //Get Repair By Id
-        LOGGER.info(new RepairService().getRepairById(rs.getRepairId()));
+        LOGGER.info(new RepairService().getRepairById(33));
         //Update Repair
-        new RepairService().updateRepair(17, c, e, s, d, "2020");
+        r.setId(7);
+        r.setCustomer(new Customer("Matias", "Pepe", "Fake 1234", "999999"));
+        new RepairService().updateRepair(r);
 
     }
 

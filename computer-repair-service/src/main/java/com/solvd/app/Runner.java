@@ -5,6 +5,7 @@ import com.solvd.app.dao.mysql.EmployeeDAO;
 import com.solvd.app.dao.mysql.ServiceDAO;
 import com.solvd.app.models.Customer;
 import com.solvd.app.models.Device;
+import com.solvd.app.models.Employee;
 import com.solvd.app.models.Repair;
 import com.solvd.app.service.jdbcimpl.RepairService;
 import org.apache.ibatis.io.Resources;
@@ -26,15 +27,16 @@ public class Runner {
         Repair r = new Repair("2021");
         r.setCustomer(new CustomerDAO().getEntityById(3));
         r.setEmployee(new EmployeeDAO().getEntityById(2));
+        //new employee
+        r.setEmployee(new Employee("Matias", "Pepe", "av 123", "33333", "Dev", "2021", 123));
         //new device
         r.setDevice(new Device("test", "test"));
         r.setService(new ServiceDAO().getEntityById(2));
-
-        //Create new Repair
+        //new repair
         new RepairService().createRepair(r);
-        //Get Repair By Id
+        //get by id
         LOGGER.info(new RepairService().getRepairById(33));
-        //Update Repair
+        //update data
         r.setId(7);
         r.setCustomer(new Customer("Matias", "Pepe", "Fake 1234", "999999"));
         new RepairService().updateRepair(r);

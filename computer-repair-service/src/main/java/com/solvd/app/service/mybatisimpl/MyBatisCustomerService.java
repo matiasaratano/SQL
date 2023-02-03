@@ -1,4 +1,4 @@
-package com.solvd.app.service.mybatisimpl.dao;
+package com.solvd.app.service.mybatisimpl;
 
 import com.solvd.app.dao.ICustomerDAO;
 import com.solvd.app.models.Customer;
@@ -15,9 +15,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyBatisCustomerDAO implements ICustomerDAO {
+public class MyBatisCustomerService implements ICustomerDAO {
 
-    private final static Logger LOGGER = LogManager.getLogger(MyBatisCustomerDAO.class);
+    private final static Logger LOGGER = LogManager.getLogger(MyBatisCustomerService.class);
     private static SqlSessionFactory sqlSessionFactory;
 
     static {

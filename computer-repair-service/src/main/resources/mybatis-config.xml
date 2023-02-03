@@ -21,6 +21,8 @@
         <!--<mapper resource="xml.files/mappers/repair-mapper.xml"/>-->
         <mapper resource="xml.files/mappers/customer-mapper.xml"/>
         <mapper resource="xml.files/mappers/device-mapper.xml"/>
+        <mapper resource="xml.files/mappers/employee-mapper.xml"/>
+        <mapper resource="xml.files/mappers/service-mapper.xml"/>
     </mappers>
 </configuration>
 

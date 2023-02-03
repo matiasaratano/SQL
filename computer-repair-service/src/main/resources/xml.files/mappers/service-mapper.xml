@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.app.dao.IServiceDAO">
+
+    <insert id="createEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO RepairService.Services (ServiceType, ServicePrice)
+        VALUES (#{serviceType},#{servicePrice})
+    </insert>
+
+    <update id="updateEntity">
+        UPDATE RepairService.Services
+        SET
+        ServiceType=#{serviceType},
+        ServicePrice=#{servicePrice},
+        WHERE serviceId = #{serviceId}
+    </update>
+
+    <delete id="removeById">
+        DELETE
+        FROM RepairService.Services
+        WHERE serviceId = #{serviceId}
+    </delete>
+
+    <select id="getEntityById" resultMap="serviceResultMap">
+        SELECT
+        *
+        FROM RepairService.Services
+        WHERE serviceId=#{serviceId}
+    </select>
+
+    <select id="findAll" resultMap="serviceResultMap">
+        SELECT *
+        FROM RepairService.Services
+    </select>
+
+    <resultMap id="serviceResultMap" type="com.solvd.app.models.Service" autoMapping="false">
+        <id column="ServiceID" property="id"/>
+        <result column="ServiceType" property="serviceType"/>
+        <result column="ServicePrice" property="servicePrice"/>
+    </resultMap>
+</mapper>

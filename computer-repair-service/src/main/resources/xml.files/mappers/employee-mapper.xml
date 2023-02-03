@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.app.dao.IEmployeeDAO">
+
+    <insert id="createEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO RepairService.Employees (FirstName, LastName, Address, Phone, Sector, HireDate, salary)
+        VALUES (#{firstName},#{lastName},#{address}, #{phone}, #{sector},#{hireDate},#{salary})
+    </insert>
+
+    <update id="updateEntity">
+        UPDATE RepairService.Employees
+        SET
+        firstName=#{firstName},
+        lastName=#{lastName},
+        address=#{address},
+        phone=#{phone}
+        sector=#{sector}
+        hireDate=#{hireDate}
+        salary=#{salary}
+        WHERE employeeId = #{employeeId}
+    </update>
+
+    <delete id="removeById">
+        DELETE
+        FROM RepairService.Employees
+        WHERE employeeId = #{employeeId}
+    </delete>
+
+    <select id="getEntityById" resultMap="employeeResultMap">
+        SELECT
+        *
+        FROM RepairService.Employees
+        WHERE employeeId=#{employeeId}
+    </select>
+
+    <select id="findAll" resultMap="employeeResultMap">
+        SELECT *
+        FROM RepairService.Employees
+    </select>
+
+    <resultMap id="employeeResultMap" type="com.solvd.app.models.Employee" autoMapping="false">
+        <id column="EmployeeId" property="id"/>
+        <result column="FirstName" property="firstName"/>
+        <result column="LastName" property="lastName"/>
+        <result column="Address" property="address"/>
+        <result column="Phone" property="phone"/>
+        <result column="Sector" property="sector"/>
+        <result column="HireDate" property="hireDate"/>
+        <result column="Salary" property="salary"/>
+    </resultMap>
+</mapper>

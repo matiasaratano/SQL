@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.app.dao.ICustomerDAO">
 
-    <insert id="createEntity" useGeneratedKeys="true" keyProperty="customerId">
+    <insert id="createEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO RepairService.Customers (FirstName, LastName, Address, Phone)
         VALUES (#{firstName},#{lastName},#{address}, #{phone})
     </insert>
@@ -36,7 +36,7 @@
     </select>
 
     <resultMap id="customerResultMap" type="com.solvd.app.models.Customer" autoMapping="false">
-        <id column="CustomerId" property="customerId"/>
+        <id column="CustomerId" property="id"/>
         <result column="FirstName" property="firstName"/>
         <result column="LastName" property="lastName"/>
         <result column="Address" property="address"/>

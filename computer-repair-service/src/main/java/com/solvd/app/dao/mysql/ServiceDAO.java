@@ -40,7 +40,7 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
     }
 
     @Override
-    public Service createEntity(Service entity) {
+    public void createEntity(Service entity) {
         try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(CREATE_SERVICE, Statement.RETURN_GENERATED_KEYS);
 
@@ -56,7 +56,7 @@ public class ServiceDAO extends MySQLDAO implements IServiceDAO {
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
-        return entity;
+
     }
 
     @Override

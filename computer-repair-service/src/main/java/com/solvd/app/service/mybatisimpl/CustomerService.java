@@ -35,31 +35,35 @@ public class CustomerService implements ICustomerDAO {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
             customer = customerDAO.getEntityById(id);
-            LOGGER.info("Get customer OK");
-            LOGGER.info(customer);
         } catch (SQLException e) {
             LOGGER.info("SQLException trying to get a customer");
         }
         return customer;
     }
 
+
     @Override
-    public Customer createEntity(Customer entity) throws SQLException {
-        LOGGER.info("Creating customer");
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
+    public void createEntity(Customer entity) throws SQLException {
+        LOGGER.info("Creating customer..");
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            ICustomerDAO customerDAO = sqlSession.getMapper(ICustomerDAO.class);
             try {
                 customerDAO.createEntity(entity);
-                session.commit();
-                LOGGER.info("Customer added successfully");
+                sqlSession.commit();
+                LOGGER.info("Customer inserted successfully");
             } catch (Exception e) {
-                LOGGER.info("Error creating customer");
-                session.rollback();
+                LOGGER.info("Error inserting customer");
+                sqlSession.rollback();
                 LOGGER.info("Session rollback");
+                LOGGER.error(e.getMessage(), e);
             }
+
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
         }
-        return entity;
+
     }
+
 
     @Override
     public void updateEntity(Customer entity) {

@@ -41,7 +41,7 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
     }
 
     @Override
-    public Device createEntity(Device entity) {
+    public void createEntity(Device entity) {
         try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(CREATE_DEVICE, Statement.RETURN_GENERATED_KEYS);
 
@@ -57,7 +57,6 @@ public class DeviceDAO extends MySQLDAO implements IDeviceDAO {
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
-        return entity;
     }
 
     @Override

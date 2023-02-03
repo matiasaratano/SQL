@@ -46,7 +46,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
     }
 
     @Override
-    public Employee createEntity(Employee entity) {
+    public void createEntity(Employee entity) {
         try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(CREATE_EMPLOYEE, Statement.RETURN_GENERATED_KEYS);
 
@@ -67,7 +67,7 @@ public class EmployeeDAO extends MySQLDAO implements IEmployeeDAO {
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
-        return entity;
+
     }
 
     @Override

@@ -43,9 +43,9 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
     }
 
     @Override
-    public Customer createEntity(Customer entity) throws SQLException {
+    public void createEntity(Customer entity) throws SQLException {
         try (Connection connection = MySQLDAO.getConnection(); PreparedStatement statement = connection.prepareStatement(CREATE_CUSTOMER, Statement.RETURN_GENERATED_KEYS);) {
-            
+
             statement.setString(1, entity.getCustomerFirstName());
             statement.setString(2, entity.getCustomerLastName());
             statement.setString(3, entity.getCustomerAddress());
@@ -60,7 +60,6 @@ public class CustomerDAO extends MySQLDAO implements ICustomerDAO {
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
-        return entity;
     }
 
     @Override

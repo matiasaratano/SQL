@@ -39,7 +39,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
     }
 
     @Override
-    public Repair createEntity(Repair entity) {
+    public void createEntity(Repair entity) {
         try (Connection connection = MySQLDAO.getConnection();) {
             PreparedStatement statement = connection.prepareStatement(CREATE_REPAIR, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, entity.getRepairCustomer().getCustomerId());
@@ -57,7 +57,6 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
-        return entity;
 
     }
 

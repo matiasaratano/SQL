@@ -43,21 +43,25 @@ public class DeviceService implements IDeviceDAO {
     }
 
     @Override
-    public Device createEntity(Device entity) throws SQLException {
-        LOGGER.info("Creating device");
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+    public void createEntity(Device entity) throws SQLException {
+        LOGGER.info("Creating device..");
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            IDeviceDAO deviceDAO = sqlSession.getMapper(IDeviceDAO.class);
             try {
                 deviceDAO.createEntity(entity);
-                session.commit();
-                LOGGER.info("Device added successfully");
+                sqlSession.commit();
+                LOGGER.info("Device inserted successfully");
             } catch (Exception e) {
-                LOGGER.info("Error creating device");
-                session.rollback();
+                LOGGER.info("Error inserting device");
+                sqlSession.rollback();
                 LOGGER.info("Session rollback");
+                LOGGER.error(e.getMessage(), e);
             }
+
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
         }
-        return entity;
+
     }
 
     @Override

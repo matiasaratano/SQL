@@ -1,7 +1,9 @@
 package com.solvd.app.mybatis;
 
 import com.solvd.app.models.Customer;
+import com.solvd.app.models.Device;
 import com.solvd.app.service.mybatisimpl.CustomerService;
+import com.solvd.app.service.mybatisimpl.DeviceService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,10 +15,13 @@ public class MyBatisRunner {
 
     public static void main(String[] args) throws SQLException {
         CustomerService customerService = new CustomerService();
-        //LOGGER.info(customerService.getEntityById(3));
+        DeviceService deviceService = new DeviceService();
+        LOGGER.info(customerService.getEntityById(3));
         Customer c = new Customer("123", "123", "123", "123");
-        LOGGER.info(customerService.createEntity(c));
-        //LOGGER.info(customerService.findAll());
-        //customerService.removeById(23);
+        Device d = new Device("test", "test");
+        deviceService.createEntity(d);
+        customerService.createEntity(c);
+        LOGGER.info(customerService.findAll());
+        customerService.removeById(23);
     }
 }

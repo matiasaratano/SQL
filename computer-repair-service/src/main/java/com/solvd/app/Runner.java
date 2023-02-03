@@ -8,15 +8,9 @@ import com.solvd.app.models.Device;
 import com.solvd.app.models.Employee;
 import com.solvd.app.models.Repair;
 import com.solvd.app.service.jdbcimpl.RepairService;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.sql.SQLException;
 
 public class Runner {
@@ -43,20 +37,4 @@ public class Runner {
 
     }
 
-    public SqlSessionFactory myBatisTask() {
-        SqlSessionFactory sqlSessionFactory;
-        try {
-            Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-        } catch (IOException e) {
-            LOGGER.error("Error");
-            throw new RuntimeException(e);
-
-        }
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        CustomerDAO customerDAO = sqlSession.getMapper(CustomerDAO.class);
-        return sqlSessionFactory;
-        //sqlSession.commit();
-        //sqlSession.rollback();
-    }
 }

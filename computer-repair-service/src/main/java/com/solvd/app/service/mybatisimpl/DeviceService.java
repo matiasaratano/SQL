@@ -1,7 +1,7 @@
 package com.solvd.app.service.mybatisimpl;
 
-import com.solvd.app.dao.ICustomerDAO;
-import com.solvd.app.models.Customer;
+import com.solvd.app.dao.IDeviceDAO;
+import com.solvd.app.models.Device;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -15,9 +15,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerService implements ICustomerDAO {
+public class DeviceService implements IDeviceDAO {
 
-    private final static Logger LOGGER = LogManager.getLogger(CustomerService.class);
+    private final static Logger LOGGER = LogManager.getLogger(DeviceService.class);
     private static SqlSessionFactory sqlSessionFactory;
 
     static {
@@ -30,30 +30,29 @@ public class CustomerService implements ICustomerDAO {
     }
 
     @Override
-    public Customer getEntityById(int id) throws SQLException {
-        Customer customer = new Customer();
+    public Device getEntityById(int id) throws SQLException {
+        Device device = new Device();
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
-            customer = customerDAO.getEntityById(id);
-            LOGGER.info("Get customer OK");
-            LOGGER.info(customer);
+            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+            device = deviceDAO.getEntityById(id);
+            LOGGER.info("Get device OK");
         } catch (SQLException e) {
             LOGGER.info("SQLException trying to get a customer");
         }
-        return customer;
+        return device;
     }
 
     @Override
-    public Customer createEntity(Customer entity) throws SQLException {
-        LOGGER.info("Creating customer");
+    public Device createEntity(Device entity) throws SQLException {
+        LOGGER.info("Creating device");
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
+            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
             try {
-                customerDAO.createEntity(entity);
+                deviceDAO.createEntity(entity);
                 session.commit();
-                LOGGER.info("Customer added successfully");
+                LOGGER.info("Device added successfully");
             } catch (Exception e) {
-                LOGGER.info("Error creating customer");
+                LOGGER.info("Error creating device");
                 session.rollback();
                 LOGGER.info("Session rollback");
             }
@@ -62,13 +61,13 @@ public class CustomerService implements ICustomerDAO {
     }
 
     @Override
-    public void updateEntity(Customer entity) {
+    public void updateEntity(Device entity) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
+            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
             try {
-                customerDAO.updateEntity(entity);
+                deviceDAO.updateEntity(entity);
                 session.commit();
-                LOGGER.info("Customer Updated successfully");
+                LOGGER.info("Device Updated successfully");
             } catch (Exception e) {
                 LOGGER.info("Error Updating");
                 session.rollback();
@@ -81,9 +80,9 @@ public class CustomerService implements ICustomerDAO {
     public void removeById(int id) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             if (id > 0) {
-                ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
-                customerDAO.removeById(id);
-                LOGGER.info("Customer Deleted");
+                IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+                deviceDAO.removeById(id);
+                LOGGER.info("Device Deleted");
                 session.commit();
             }
         } catch (Exception e) {
@@ -91,23 +90,25 @@ public class CustomerService implements ICustomerDAO {
         }
     }
 
+
     @Override
-    public List<Customer> findAll() {
+    public List<Device> findAll() {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
-            List<Customer> allCustomers = customerDAO.findAll();
-            return allCustomers;
+            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+            List<Device> allDevices = deviceDAO.findAll();
+            return allDevices;
         }
     }
 
     @Override
-    public ArrayList<Customer> getCustomersByRepairId(int repairId) {
-        ArrayList<Customer> customersList;
+    public ArrayList<Device> getDevicesByRepairId(int repairId) {
+        ArrayList<Device> devicesList;
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
-            customersList = customerDAO.getCustomersByRepairId(repairId);
-            LOGGER.info("Get all customers by repairId finish successfully");
+            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+            devicesList = deviceDAO.getDevicesByRepairId(repairId);
+            LOGGER.info("Get all devices by repairId finish successfully");
         }
-        return customersList;
+        return devicesList;
     }
 }
+

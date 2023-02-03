@@ -1,7 +1,7 @@
-package com.solvd.app.service.mybatisimpl;
+package com.solvd.app.service.mybatisimpl.dao;
 
-import com.solvd.app.dao.IDeviceDAO;
-import com.solvd.app.models.Device;
+import com.solvd.app.dao.ICustomerDAO;
+import com.solvd.app.models.Customer;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -15,9 +15,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeviceService implements IDeviceDAO {
+public class MyBatisCustomerDAO implements ICustomerDAO {
 
-    private final static Logger LOGGER = LogManager.getLogger(DeviceService.class);
+    private final static Logger LOGGER = LogManager.getLogger(MyBatisCustomerDAO.class);
     private static SqlSessionFactory sqlSessionFactory;
 
     static {
@@ -30,29 +30,29 @@ public class DeviceService implements IDeviceDAO {
     }
 
     @Override
-    public Device getEntityById(int id) throws SQLException {
-        Device device = new Device();
+    public Customer getEntityById(int id) throws SQLException {
+        Customer customer = new Customer();
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
-            device = deviceDAO.getEntityById(id);
-            LOGGER.info("Get device OK");
+            ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
+            customer = customerDAO.getEntityById(id);
         } catch (SQLException e) {
             LOGGER.info("SQLException trying to get a customer");
         }
-        return device;
+        return customer;
     }
 
+
     @Override
-    public void createEntity(Device entity) throws SQLException {
-        LOGGER.info("Creating device..");
+    public void createEntity(Customer entity) throws SQLException {
+        LOGGER.info("Creating customer..");
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            IDeviceDAO deviceDAO = sqlSession.getMapper(IDeviceDAO.class);
+            ICustomerDAO customerDAO = sqlSession.getMapper(ICustomerDAO.class);
             try {
-                deviceDAO.createEntity(entity);
+                customerDAO.createEntity(entity);
                 sqlSession.commit();
-                LOGGER.info("Device inserted successfully");
+                LOGGER.info("Customer inserted successfully");
             } catch (Exception e) {
-                LOGGER.info("Error inserting device");
+                LOGGER.info("Error inserting customer");
                 sqlSession.rollback();
                 LOGGER.info("Session rollback");
                 LOGGER.error(e.getMessage(), e);
@@ -64,14 +64,15 @@ public class DeviceService implements IDeviceDAO {
 
     }
 
+
     @Override
-    public void updateEntity(Device entity) {
+    public void updateEntity(Customer entity) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+            ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
             try {
-                deviceDAO.updateEntity(entity);
+                customerDAO.updateEntity(entity);
                 session.commit();
-                LOGGER.info("Device Updated successfully");
+                LOGGER.info("Customer Updated successfully");
             } catch (Exception e) {
                 LOGGER.info("Error Updating");
                 session.rollback();
@@ -84,9 +85,9 @@ public class DeviceService implements IDeviceDAO {
     public void removeById(int id) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             if (id > 0) {
-                IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
-                deviceDAO.removeById(id);
-                LOGGER.info("Device Deleted");
+                ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
+                customerDAO.removeById(id);
+                LOGGER.info("Customer Deleted");
                 session.commit();
             }
         } catch (Exception e) {
@@ -94,25 +95,23 @@ public class DeviceService implements IDeviceDAO {
         }
     }
 
-
     @Override
-    public List<Device> findAll() {
+    public List<Customer> findAll() {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
-            List<Device> allDevices = deviceDAO.findAll();
-            return allDevices;
+            ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
+            List<Customer> allCustomers = customerDAO.findAll();
+            return allCustomers;
         }
     }
 
     @Override
-    public ArrayList<Device> getDevicesByRepairId(int repairId) {
-        ArrayList<Device> devicesList;
+    public ArrayList<Customer> getCustomersByRepairId(int repairId) {
+        ArrayList<Customer> customersList;
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
-            devicesList = deviceDAO.getDevicesByRepairId(repairId);
-            LOGGER.info("Get all devices by repairId finish successfully");
+            ICustomerDAO customerDAO = session.getMapper(ICustomerDAO.class);
+            customersList = customerDAO.getCustomersByRepairId(repairId);
+            LOGGER.info("Get all customers by repairId finish successfully");
         }
-        return devicesList;
+        return customersList;
     }
 }
-

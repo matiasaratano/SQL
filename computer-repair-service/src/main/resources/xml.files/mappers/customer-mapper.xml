@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.app.dao.ICustomerDAO">
+
+    <insert id="createEntity" useGeneratedKeys="true" keyProperty="customerId">
+        INSERT INTO Customers (FirstName, LastName, Address, Phone)
+        VALUES (#{firstName},#{lastName},#{address}, #{phone})
+    </insert>
+
+    <update id="updateEntity">
+        UPDATE RepairService.Customers
+        SET
+        firstName=#{firstName},
+        lastName=#{lastName},
+        address=#{address},
+        phone=#{phone}
+        WHERE customerId = #{customerId}
+    </update>
+
+    <delete id="removeEntity">
+        DELETE
+        FROM RepairService.Customers
+        WHERE customerId = #{customerId}
+    </delete>
+
+    <select id="getEntityById" resultMap="customerResultMap">
+        SELECT
+        *
+        FROM RepairService.Customers
+        WHERE customerId=#{customerId}
+    </select>
+
+    <select id="getAllEntities" resultMap="customerResultMap">
+        SELECT *
+        FROM RepairService.Customers
+    </select>
+
+    <resultMap id="customerResultMap" type="com.solvd.app.models.Customer" autoMapping="false">
+        <id column="CustomerId" property="id"/>
+        <result column="FirstName" property="firstName"/>
+        <result column="LastName" property="lastName"/>
+        <result column="Address" property="address"/>
+        <result column="Phone" property="phone"/>
+    </resultMap>
+</mapper>

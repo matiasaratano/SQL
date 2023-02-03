@@ -1,7 +1,8 @@
+<!--
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.app.dao.mysql.RepairDAO">
+<mapper namespace="com.solvd.app.dao.IRepairDAO">
     <select id="getEntityById" resultMap="repairResultMap" resultType="com.solvd.app.models.Repair">
         SELECT * FROM RepairService.Repairs WHERE RepairID = #{id}
     </select>
@@ -9,7 +10,7 @@
         INSERT INTO RepairService.Repairs (customerId, employeeId, serviceId, deviceId, RepairDate)
         VALUES (#{customerId}, #{employeeId}, #{serviceId}, #{deviceId}, #{RepairDate})
     </insert>
-    <update id="updateEntity" parameterType="com.example.Repair">
+    <update id="updateEntity" parameterType="com.solvd.app.models.Repair">
         UPDATE repairs
         SET device = #{device}, description = #{description}, cost = #{cost}
         WHERE id = #{id}
@@ -24,4 +25,5 @@
         <collection property="services" resultMap="com.solvd.app.dao.mysql.EmployeeDAO.serviceResultMap"/>
     </resultMap>
 </mapper>
+-->
 

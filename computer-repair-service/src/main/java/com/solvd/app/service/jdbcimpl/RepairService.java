@@ -8,6 +8,7 @@ import com.solvd.app.service.IRepairService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RepairService implements IRepairService {
 
@@ -86,5 +87,22 @@ public class RepairService implements IRepairService {
         }
         repairDAO.updateEntity(newRepair);
         return newRepair;
+    }
+
+    public List<Repair> getAllRepairs() {
+        List<Repair> repairs = repairDAO.findAll();
+        for (Repair repair : repairs) {
+            repair.setCustomer(customerDAO.getCustomerByRepairId(repair.getRepairId()));
+            ArrayList<Employee> employees = employeeDAO.getEmployeesByRepairId(repair.getRepairId());
+            for (Employee employee : employees) {
+                repair.setEmployee(employee);
+            }
+            ArrayList<Service> services = serviceDAO.getServicesByRepairId(repair.getRepairId());
+            for (Service service : services) {
+                repair.setService(service);
+            }
+            repair.setDevice(deviceDAO.getDeviceByRepairId(repair.getRepairId()));
+        }
+        return repairs;
     }
 }

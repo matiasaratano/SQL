@@ -105,6 +105,7 @@ public class RepairDAO extends MySQLDAO implements IRepairDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
                 repairs.add(new Repair(
+                        resultSet.getInt("repairId"),
                         resultSet.getString("repairDate")
 
                 ));

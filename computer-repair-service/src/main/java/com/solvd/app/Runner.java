@@ -38,7 +38,7 @@ public class Runner {
         LOGGER.info(new RepairService().getRepairById(33));
         //update data
         r.setId(7);
-        r.setCustomer(new Customer("Matias", "Pepe", "Fake 1234", "999999"));
+        r.setCustomer(new Customer("Nicolas", "Pepe", "Fake 1234", "999999"));
         new RepairService().updateRepair(r);
 
     }

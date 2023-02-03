@@ -59,6 +59,13 @@ public class Repair {
         this.services = new ArrayList<>();
     }
 
+    public Repair(int id, String repairDate) {
+        this.id = id;
+        this.repairDate = repairDate;
+        this.employees = new ArrayList<>();
+        this.services = new ArrayList<>();
+    }
+
     @JsonProperty("repairId")
     public int getRepairId() {
         return id;

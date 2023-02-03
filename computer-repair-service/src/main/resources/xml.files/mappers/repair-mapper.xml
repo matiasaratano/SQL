@@ -1,4 +1,3 @@
-<!--
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
@@ -19,13 +18,14 @@
         DELETE FROM repairs WHERE id = #{id}
     </delete>
     <resultMap id="repairResultMap" type="com.solvd.app.models.Repair" autoMapping="false">
-        <result column="repairId" property="id"/>
-        <result column="customerId" property="customerId"/>
+        <id column="RepairId" property="id"/>
+        <result column="CustomerId" property="customer"/>
+        <result column="DeviceId" property="repair"/>
+        <result column="RepairDate" property="repairDate"/>
         <collection property="employees" resultMap="com.solvd.app.dao.mysql.EmployeeDAO.employeeResultMap"/>
-        <collection property="services" resultMap="com.solvd.app.dao.mysql.EmployeeDAO.serviceResultMap"/>
+        <collection property="services" resultMap="com.solvd.app.dao.mysql.ServiceDAO.serviceResultMap"/>
     </resultMap>
 </mapper>
--->
 
 
 

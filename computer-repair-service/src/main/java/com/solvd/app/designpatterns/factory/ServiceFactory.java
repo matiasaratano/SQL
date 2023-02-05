@@ -1,23 +1,25 @@
 package com.solvd.app.designpatterns.factory;
 
-import com.solvd.app.designpatterns.factory.exampleclasses.SomeService;
-import com.solvd.app.designpatterns.factory.exampleclasses.SomeServiceFirstImpl;
-import com.solvd.app.designpatterns.factory.exampleclasses.SomeServiceSecondImpl;
+import com.solvd.app.service.IRepairService;
+import com.solvd.app.service.jdbcimpl.RepairService;
+import com.solvd.app.service.mybatisimpl.MyBatisRepairService;
 import com.solvd.app.utils.exceptions.IncorrectTypeException;
+
+import java.sql.SQLException;
 
 public class ServiceFactory {
 
-    public SomeService getService(String type) {
-        if (type == null || type.isEmpty()) {
+    public IRepairService getService(ImplType type) throws SQLException {
+        if (type == null) {
             throw new IncorrectTypeException("Service type should be declared");
         }
         switch (type) {
-            case "first":
-                return new SomeServiceFirstImpl();
-            case "second":
-                return new SomeServiceSecondImpl();
+            case JDBC:
+                return new RepairService();
+            case MYBATIS:
+                return new MyBatisRepairService();
             default:
-                throw new IncorrectTypeException("Unsupported service type. 'first' and 'second' types supported only");
+                throw new IncorrectTypeException("Unsupported service type. 'JDBC' and 'MYBATIS' types supported only");
         }
     }
 }

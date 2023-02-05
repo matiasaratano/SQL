@@ -50,10 +50,8 @@
             <result property="brand" column="brand"/>
         </association>
         <collection property="employees" javaType="java.util.ArrayList"
-                    ofType="com.solvd.app.models.Employee"
                     resultMap="com.solvd.app.dao.IEmployeeDAO.employeeResultMap"/>
         <collection property="services" javaType="java.util.ArrayList"
-                    ofType="com.solvd.app.models.Service"
                     resultMap="com.solvd.app.dao.IServiceDAO.serviceResultMap"/>
     </resultMap>
 </mapper>

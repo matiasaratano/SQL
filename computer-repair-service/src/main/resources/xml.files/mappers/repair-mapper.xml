@@ -2,28 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.app.dao.IRepairDAO">
+
     <select id="getEntityById" resultMap="repairResultMap" resultType="com.solvd.app.models.Repair">
-        SELECT * FROM RepairService.Repairs WHERE RepairID = #{id}
+        SELECT Repairs.repairID, Customers.customerId, Customers.firstName, Customers.lastName, Customers.address,
+        Customers.phone,
+        Devices.deviceId, Devices.deviceType, Devices.brand, Employees.employeeId, Employees.firstName,
+        Employees.lastName,Employees.address,Employees.phone, Employees.sector, Employees.salary,Employees.hireDate,
+        Services.serviceId,Services.serviceType, Services.servicePrice,Repairs.repairDate
+        FROM Repairs
+        LEFT JOIN Customers
+        ON Repairs.customerId = Customers.customerId
+        LEFT JOIN Employees
+        ON Repairs.employeeId = Employees.employeeId
+        LEFT JOIN Devices
+        ON Repairs.deviceId = Devices.deviceId
+        LEFT JOIN Services
+        ON Repairs.serviceId = Services.serviceId
+        WHERE Repairs.repairId = #{repairId};
     </select>
     <insert id="createEntity" useGeneratedKeys="true" keyProperty="id" parameterType="com.solvd.app.models.Repair">
         INSERT INTO RepairService.Repairs (customerId, employeeId, serviceId, deviceId, RepairDate)
         VALUES (#{customerId}, #{employeeId}, #{serviceId}, #{deviceId}, #{RepairDate})
     </insert>
     <update id="updateEntity" parameterType="com.solvd.app.models.Repair">
-        UPDATE repairs
-        SET device = #{device}, description = #{description}, cost = #{cost}
-        WHERE id = #{id}
+        SET customerId=?, employeeId=?, serviceId=?, deviceId=?, RepairDate=? WHERE repairID= ?";
+        UPDATE RepairService.Repairs
+        SET customerId = #{customerId}, employeeId = #{employeeId}, serviceId = #{serviceId}, deviceId = #{deviceId},
+        RepairDate = #{RepairDate}
+        WHERE repairId = #{repairId}
     </update>
     <delete id="removeById" parameterType="int">
-        DELETE FROM repairs WHERE id = #{id}
+        DELETE FROM RepairService.Repairs WHERE repairId = #{repairId}
     </delete>
-    <resultMap id="repairResultMap" type="com.solvd.app.models.Repair" autoMapping="false">
-        <id column="RepairId" property="id"/>
-        <result column="CustomerId" property="customer"/>
-        <result column="DeviceId" property="repair"/>
-        <result column="RepairDate" property="repairDate"/>
-        <collection property="employees" resultMap="com.solvd.app.dao.mysql.EmployeeDAO.employeeResultMap"/>
-        <collection property="services" resultMap="com.solvd.app.dao.mysql.ServiceDAO.serviceResultMap"/>
+    <resultMap id="repairResultMap" type="com.solvd.app.models.Repair">
+        <id column="repairId" property="id"/>
+        <result property="repairDate" column="repairDate"/>
+        <association property="customer" javaType="com.solvd.app.models.Customer">
+            <id property="id" column="customerId"/>
+            <result property="firstName" column="firstName"/>
+            <result property="lastName" column="lastName"/>
+            <result property="address" column="address"/>
+            <result property="phone" column="phone"/>
+        </association>
+        <association property="device" javaType="com.solvd.app.models.Device">
+            <id property="id" column="deviceId"/>
+            <result property="deviceType" column="deviceType"/>
+            <result property="brand" column="brand"/>
+        </association>
+        <collection property="employees" javaType="java.util.ArrayList"
+                    ofType="com.solvd.app.models.Employee"
+                    resultMap="com.solvd.app.dao.IEmployeeDAO.employeeResultMap"/>
+        <collection property="services" javaType="java.util.ArrayList"
+                    ofType="com.solvd.app.models.Service"
+                    resultMap="com.solvd.app.dao.IServiceDAO.serviceResultMap"/>
     </resultMap>
 </mapper>
 

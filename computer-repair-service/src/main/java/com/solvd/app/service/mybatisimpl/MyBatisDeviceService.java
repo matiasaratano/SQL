@@ -2,15 +2,12 @@ package com.solvd.app.service.mybatisimpl;
 
 import com.solvd.app.dao.IDeviceDAO;
 import com.solvd.app.models.Device;
-import org.apache.ibatis.io.Resources;
+import com.solvd.app.mybatis.MyBatisDaoFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +15,14 @@ import java.util.List;
 public class MyBatisDeviceService implements IDeviceDAO {
 
     private final static Logger LOGGER = LogManager.getLogger(MyBatisDeviceService.class);
-    private static SqlSessionFactory sqlSessionFactory;
+    private static final SqlSessionFactory SESSION_FACTORY = MyBatisDaoFactory.getSqlSessionFactory();
 
-    static {
-        try {
-            Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public Device getEntityById(int id) throws SQLException {
         Device device = new Device();
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+        try (SqlSession sqlSession = SESSION_FACTORY.openSession()) {
+            IDeviceDAO deviceDAO = sqlSession.getMapper(IDeviceDAO.class);
             device = deviceDAO.getEntityById(id);
             LOGGER.info("Get device OK");
         } catch (SQLException e) {
@@ -45,7 +34,7 @@ public class MyBatisDeviceService implements IDeviceDAO {
     @Override
     public void createEntity(Device entity) throws SQLException {
         LOGGER.info("Creating device..");
-        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+        try (SqlSession sqlSession = SESSION_FACTORY.openSession()) {
             IDeviceDAO deviceDAO = sqlSession.getMapper(IDeviceDAO.class);
             try {
                 deviceDAO.createEntity(entity);
@@ -66,15 +55,15 @@ public class MyBatisDeviceService implements IDeviceDAO {
 
     @Override
     public void updateEntity(Device entity) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+        try (SqlSession sqlSession = SESSION_FACTORY.openSession()) {
+            IDeviceDAO deviceDAO = sqlSession.getMapper(IDeviceDAO.class);
             try {
                 deviceDAO.updateEntity(entity);
-                session.commit();
+                sqlSession.commit();
                 LOGGER.info("Device Updated successfully");
             } catch (Exception e) {
                 LOGGER.info("Error Updating");
-                session.rollback();
+                sqlSession.rollback();
                 LOGGER.info("Session rollback");
             }
         }
@@ -82,12 +71,12 @@ public class MyBatisDeviceService implements IDeviceDAO {
 
     @Override
     public void removeById(int id) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
+        try (SqlSession sqlSession = SESSION_FACTORY.openSession()) {
             if (id > 0) {
-                IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+                IDeviceDAO deviceDAO = sqlSession.getMapper(IDeviceDAO.class);
                 deviceDAO.removeById(id);
                 LOGGER.info("Device Deleted");
-                session.commit();
+                sqlSession.commit();
             }
         } catch (Exception e) {
             LOGGER.info("Error Deleting");
@@ -97,8 +86,8 @@ public class MyBatisDeviceService implements IDeviceDAO {
 
     @Override
     public List<Device> findAll() {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+        try (SqlSession sqlSession = SESSION_FACTORY.openSession()) {
+            IDeviceDAO deviceDAO = sqlSession.getMapper(IDeviceDAO.class);
             List<Device> allDevices = deviceDAO.findAll();
             return allDevices;
         }
@@ -107,8 +96,8 @@ public class MyBatisDeviceService implements IDeviceDAO {
     @Override
     public ArrayList<Device> getDevicesByRepairId(int repairId) {
         ArrayList<Device> devicesList;
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            IDeviceDAO deviceDAO = session.getMapper(IDeviceDAO.class);
+        try (SqlSession sqlSession = SESSION_FACTORY.openSession()) {
+            IDeviceDAO deviceDAO = sqlSession.getMapper(IDeviceDAO.class);
             devicesList = deviceDAO.getDevicesByRepairId(repairId);
             LOGGER.info("Get all devices by repairId finish successfully");
         }

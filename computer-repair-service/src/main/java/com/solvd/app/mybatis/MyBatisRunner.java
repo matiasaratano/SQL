@@ -4,8 +4,7 @@ import com.solvd.app.models.Customer;
 import com.solvd.app.models.Device;
 import com.solvd.app.service.mybatisimpl.MyBatisCustomerService;
 import com.solvd.app.service.mybatisimpl.MyBatisDeviceService;
-import com.solvd.app.service.mybatisimpl.MyBatisEmployeeService;
-import com.solvd.app.service.mybatisimpl.MyBatisServiceService;
+import com.solvd.app.service.mybatisimpl.MyBatisRepairService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,17 +16,17 @@ public class MyBatisRunner {
 
     public static void main(String[] args) throws SQLException {
         MyBatisCustomerService customerService = new MyBatisCustomerService();
-        MyBatisDeviceService deviceService = new MyBatisDeviceService();
-        MyBatisEmployeeService employeeService = new MyBatisEmployeeService();
-        MyBatisServiceService serviceService = new MyBatisServiceService();
         LOGGER.info(customerService.getEntityById(3));
         Customer c = new Customer("123", "123", "123", "123");
-        Device d = new Device("test", "test");
-        //deviceService.createEntity(d);
-        //customerService.createEntity(c);
+        customerService.createEntity(c);
         LOGGER.info(customerService.findAll());
         customerService.removeById(23);
-        LOGGER.info(employeeService.getEntityById(7));
-        LOGGER.info(serviceService.getEntityById(7));
+
+        MyBatisDeviceService deviceService = new MyBatisDeviceService();
+        Device d = new Device("test", "test");
+        deviceService.createEntity(d);
+
+        MyBatisRepairService rs = new MyBatisRepairService();
+        LOGGER.info(rs.getRepairById(9));
     }
 }

@@ -3,9 +3,11 @@
         "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.app.dao.IRepairDAO">
 
-    <select id="getEntityById" resultMap="repairResultMap" resultType="com.solvd.app.models.Repair">
-        SELECT Repairs.repairID, Customers.customerId, Customers.firstName, Customers.lastName, Customers.address,
-        Customers.phone,
+    <select id="getEntityById" resultMap="repairResultMap">
+        SELECT Repairs.repairID, Customers.customerId, Customers.firstName as customerFirstName, Customers.lastName as
+        customerLastName,
+        Customers.address as customerAddress,
+        Customers.phone as customerPhone,
         Devices.deviceId, Devices.deviceType, Devices.brand, Employees.employeeId, Employees.firstName,
         Employees.lastName,Employees.address,Employees.phone, Employees.sector, Employees.salary,Employees.hireDate,
         Services.serviceId,Services.serviceType, Services.servicePrice,Repairs.repairDate
@@ -34,24 +36,24 @@
     <delete id="removeById" parameterType="int">
         DELETE FROM RepairService.Repairs WHERE repairId = #{repairId}
     </delete>
-    <resultMap id="repairResultMap" type="com.solvd.app.models.Repair">
+    <resultMap id="repairResultMap" type="com.solvd.app.models.Repair" autoMapping="false">
         <id column="repairId" property="id"/>
         <result property="repairDate" column="repairDate"/>
         <association property="customer" javaType="com.solvd.app.models.Customer">
             <id property="id" column="customerId"/>
-            <result property="firstName" column="firstName"/>
-            <result property="lastName" column="lastName"/>
-            <result property="address" column="address"/>
-            <result property="phone" column="phone"/>
+            <result property="firstName" column="customerFirstName"/>
+            <result property="lastName" column="customerLastName"/>
+            <result property="address" column="customerAddress"/>
+            <result property="phone" column="customerPhone"/>
         </association>
         <association property="device" javaType="com.solvd.app.models.Device">
             <id property="id" column="deviceId"/>
             <result property="deviceType" column="deviceType"/>
             <result property="brand" column="brand"/>
         </association>
-        <collection property="employees" javaType="java.util.ArrayList"
+        <collection property="employees"
                     resultMap="com.solvd.app.dao.IEmployeeDAO.employeeResultMap"/>
-        <collection property="services" javaType="java.util.ArrayList"
+        <collection property="services"
                     resultMap="com.solvd.app.dao.IServiceDAO.serviceResultMap"/>
     </resultMap>
 </mapper>

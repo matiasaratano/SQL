@@ -12,7 +12,7 @@ public class Employee {
     private int id;
     @JsonProperty("eFirstName")
     @XmlElement
-    private String firstName;
+    private String employeeFirstName;
     @JsonProperty("eLastName")
     @XmlElement
     private String lastName;
@@ -42,7 +42,7 @@ public class Employee {
     }
 
     public Employee(String firstName, String lastName, String address, String phone, String sector, String hireDate, int salary) {
-        this.firstName = firstName;
+        this.employeeFirstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
@@ -53,7 +53,7 @@ public class Employee {
 
     public Employee(int employeeId, String firstName, String lastName, String address, String phone, String sector, String hireDate, int salary) {
         this.id = employeeId;
-        this.firstName = firstName;
+        this.employeeFirstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
@@ -64,11 +64,11 @@ public class Employee {
 
     @JsonProperty("firstName")
     public String getEmployeeFirstName() {
-        return firstName;
+        return employeeFirstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.employeeFirstName = firstName;
     }
 
     @JsonProperty("lastName")
@@ -138,7 +138,7 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
+                ", firstName='" + employeeFirstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +

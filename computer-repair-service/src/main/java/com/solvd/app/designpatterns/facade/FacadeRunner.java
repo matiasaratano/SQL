@@ -11,7 +11,7 @@ public class FacadeRunner {
     public static void main(String[] args) throws SQLException {
         FacadePattern facade = new FacadePattern();
         LOGGER.info(facade.getRepairByIdJDBC());
-        LOGGER.info(facade.getRepairByIdMYBATIS());
+        LOGGER.info(facade.getRepairByIdMyBatis());
     }
 
 }

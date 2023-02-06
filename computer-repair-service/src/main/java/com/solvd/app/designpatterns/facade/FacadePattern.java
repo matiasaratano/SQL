@@ -22,14 +22,20 @@ public class FacadePattern {
     }
 
     public Repair getRepairByIdJDBC() throws SQLException {
-        LOGGER.info("Insert id number of the repair");
-        int a = Integer.parseInt(scanner.next());
-        return jdbcRepairService.getRepairById(a);
+        return jdbcRepairService.getRepairById(insertNumber());
     }
 
-    public Repair getRepairByIdMYBATIS() throws SQLException {
+    public Repair getRepairByIdMyBatis() throws SQLException {
+        return myBatisRepairService.getRepairById(insertNumber());
+    }
+
+    public int insertNumber() {
         LOGGER.info("Insert id number of the repair");
-        int a = Integer.parseInt(scanner.next());
-        return myBatisRepairService.getRepairById(a);
+        try {
+            return Integer.parseInt(scanner.next());
+        } catch (NumberFormatException e) {
+            LOGGER.error("Invalid Input");
+        }
+        return 0;
     }
 }

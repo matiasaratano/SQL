@@ -1,5 +1,6 @@
 package com.solvd.app.designpatterns.factory;
 
+import com.solvd.app.service.IRepairService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +11,26 @@ public class FactoryRunner {
 
     public static void main(String[] args) throws SQLException {
         ServiceFactory serviceFactory = new ServiceFactory();
-        LOGGER.info(serviceFactory.getService(ImplType.JDBC).getRepairById(9));
-        LOGGER.info(serviceFactory.getService(ImplType.MYBATIS).getRepairById(33));
+        IRepairService repairService = serviceFactory.getService(ImplType.JDBC);
+        if (repairService != null) {
+            try {
+                LOGGER.info(repairService.getRepairById(9));
+            } catch (SQLException e) {
+                LOGGER.error("SQL exception: ", e);
+            }
+        } else {
+            LOGGER.error("Error getting repair service");
+        }
+
+        IRepairService myBatisRepairService = serviceFactory.getService(ImplType.MYBATIS);
+        if (myBatisRepairService != null) {
+            try {
+                LOGGER.info(myBatisRepairService.getRepairById(9));
+            } catch (SQLException e) {
+                LOGGER.error("SQL exception: ", e);
+            }
+        } else {
+            LOGGER.error("Error getting MyBatis repair service");
+        }
     }
 }

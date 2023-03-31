@@ -165,7 +165,6 @@ public class MyHandler extends DefaultHandler {
                 repair.setCustomer(customer);
                 break;
             case "employees":
-                ;
                 break;
             case "employee":
                 break;

@@ -18,7 +18,6 @@ public class XMLValidator {
 
     public static void main(String[] args) {
         try {
-            //
             String xsdPath = "./src/main/resources/xml.files/schema.xsd";
             String xmlPath = "./src/main/resources/xml.files/schema.xml";
             boolean valid = validateXMLSchema(xsdPath, xmlPath);
